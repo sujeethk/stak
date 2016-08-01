@@ -27,6 +27,14 @@ module.exports = {
   // for obsecurity reasons
   sessionKey: 'sessionId',
   sessionCollection: 'sessions',
+  // Lusca config
+  csrf: {
+    csrf: false,
+    csp: { /* Content Security Policy object */},
+    xframe: 'SAMEORIGIN',
+    p3p: 'ABCDEF',
+    xssProtection: true
+  },
   logo: 'modules/core/client/img/brand/logo.png',
   favicon: 'modules/core/client/img/brand/favicon.ico',
   uploads: {
