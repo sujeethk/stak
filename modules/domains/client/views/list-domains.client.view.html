@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Domains</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="domain in vm.domains"
+       data-ui-sref="domains.view({ domainId: domain._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="domain.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="domain.user" data-ng-bind="domain.user.displayName"></span>
+        <span data-ng-if="!domain.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="domain.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.domains.$resolved && !vm.domains.length">
+    No Domains yet, why don't you <a data-ui-sref="domains.create">create one</a>?
+  </div>
+</section>

@@ -79,15 +79,22 @@ var UserSchema = new Schema({
     primary: String,
     secondary: String
   },
-  
-  domainAuthor: [Schema.Types.ObjectId],
-
-  primaryDomain: Schema.Types.ObjectId,
-
-  team: Schema.Types.ObjectId,
-
-  manager: Schema.Types.ObjectId,
-
+  domainAuthor: {
+    type: [Schema.ObjectId],
+    ref: 'Domain'
+  },
+  primaryDomain: {
+    type: Schema.ObjectId,
+    ref: 'Domain'
+  },
+  team: {
+    type: Schema.ObjectId,
+    ref: 'Team'
+  },
+  manager: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   engage:{
     email: Boolean,
     phone: Boolean,

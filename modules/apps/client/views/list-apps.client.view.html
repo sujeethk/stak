@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Apps</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="app in vm.apps"
+       data-ui-sref="apps.view({ appId: app._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="app.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="app.user" data-ng-bind="app.user.displayName"></span>
+        <span data-ng-if="!app.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="app.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.apps.$resolved && !vm.apps.length">
+    No Apps yet, why don't you <a data-ui-sref="apps.create">create one</a>?
+  </div>
+</section>
