@@ -1,0 +1,23 @@
+version: v1.5.0
+ignore: {}
+patch:
+  'npm:minimatch:20160620':
+    - forever > forever-monitor > minimatch:
+        patched: '2016-08-02T18:59:26.109Z'
+  'npm:negotiator:20160616':
+    - socket.io > engine.io > accepts > negotiator:
+        patched: '2016-08-02T18:59:26.109Z'
+  'npm:request:20160119':
+    - phantomjs > request:
+        patched: '2016-08-02T18:59:26.109Z'
+  'npm:tough-cookie:20160722':
+    - phantomjs > request > tough-cookie:
+        patched: '2016-08-02T18:59:26.109Z'
+  'npm:uglify-js:20151024':
+    - swig > uglify-js:
+        patched: '2016-08-02T18:59:26.109Z'
+  'npm:ws:20160624':
+    - socket.io > engine.io > ws:
+        patched: '2016-08-02T18:59:26.109Z'
+    - socket.io > socket.io-client > engine.io-client > ws:
+        patched: '2016-08-02T18:59:26.109Z'
