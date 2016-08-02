@@ -18,7 +18,7 @@ var AppSchema = new Schema({
   },
   ait: {
     type: Number,
-    required: 'Please fill AIT number',
+    //required: 'Please fill AIT number',
     trim: true
   },
   status:{

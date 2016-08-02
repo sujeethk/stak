@@ -10,8 +10,8 @@
         Posted on
         <span data-ng-bind="team.created | date:'mediumDate'"></span>
         by
-        <span data-ng-if="team.user" data-ng-bind="team.user.displayName"></span>
-        <span data-ng-if="!team.user">Deleted User</span>
+        <span data-ng-if="team.createdBy" data-ng-bind="team.createdBy.displayName"></span>
+        <span data-ng-if="!team.createdBy">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" data-ng-bind="team.name"></h4>
     </a>

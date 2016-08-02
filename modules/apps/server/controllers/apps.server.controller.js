@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var app = new App(req.body);
-  app.user = req.user;
+  app.createdBy = req.user;
 
   app.save(function(err) {
     if (err) {
@@ -36,7 +36,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  app.isCurrentUserOwner = req.user && app.user && app.user._id.toString() === req.user._id.toString() ? true : false;
+  app.isCurrentUserOwner = req.user && app.createdBy && app.createdBy._id.toString() === req.user._id.toString() ? true : false;
 
   res.jsonp(app);
 };
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Apps
  */
 exports.list = function(req, res) { 
-  App.find().sort('-created').populate('user', 'displayName').exec(function(err, apps) {
+  App.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, apps) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.appByID = function(req, res, next, id) {
     });
   }
 
-  App.findById(id).populate('user', 'displayName').exec(function (err, app) {
+  App.findById(id).populate('createdBy', 'displayName').exec(function (err, app) {
     if (err) {
       return next(err);
     } else if (!app) {

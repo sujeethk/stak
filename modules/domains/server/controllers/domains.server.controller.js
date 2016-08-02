@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var domain = new Domain(req.body);
-  domain.user = req.user;
+  domain.createdBy = req.user;
 
   domain.save(function(err) {
     if (err) {
@@ -36,7 +36,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  domain.isCurrentUserOwner = req.user && domain.user && domain.user._id.toString() === req.user._id.toString() ? true : false;
+  domain.isCurrentUserOwner = req.user && domain.createdBy && domain.createdBy._id.toString() === req.user._id.toString() ? true : false;
 
   res.jsonp(domain);
 };
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Domains
  */
 exports.list = function(req, res) { 
-  Domain.find().sort('-created').populate('user', 'displayName').exec(function(err, domains) {
+  Domain.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, domains) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.domainByID = function(req, res, next, id) {
     });
   }
 
-  Domain.findById(id).populate('user', 'displayName').exec(function (err, domain) {
+  Domain.findById(id).populate('createdBy', 'displayName').exec(function (err, domain) {
     if (err) {
       return next(err);
     } else if (!domain) {

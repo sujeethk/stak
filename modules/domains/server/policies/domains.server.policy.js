@@ -49,7 +49,7 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Domain is being processed and the current user created it then allow any manipulation
-  if (req.domain && req.user && req.domain.user && req.domain.user.id === req.user.id) {
+  if (req.domain && req.user && req.domain.createdBy && req.domain.createdBy.id === req.user.id) {
     return next();
   }
 

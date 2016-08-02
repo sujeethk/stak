@@ -49,7 +49,7 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an Team is being processed and the current user created it then allow any manipulation
-  if (req.team && req.user && req.team.user && req.team.user.id === req.user.id) {
+  if (req.team && req.user && req.team.createdBy && req.team.createdBy.id === req.user.id) {
     return next();
   }
 

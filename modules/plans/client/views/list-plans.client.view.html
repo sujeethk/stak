@@ -10,8 +10,8 @@
         Posted on
         <span data-ng-bind="plan.created | date:'mediumDate'"></span>
         by
-        <span data-ng-if="plan.user" data-ng-bind="plan.user.displayName"></span>
-        <span data-ng-if="!plan.user">Deleted User</span>
+        <span data-ng-if="plan.createdBy" data-ng-bind="plan.createdBy.displayName"></span>
+        <span data-ng-if="!plan.createdBy">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" data-ng-bind="plan.name"></h4>
     </a>

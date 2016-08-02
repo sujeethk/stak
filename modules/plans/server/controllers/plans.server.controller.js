@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var plan = new Plan(req.body);
-  plan.user = req.user;
+  plan.createdBy = req.user;
 
   plan.save(function(err) {
     if (err) {
@@ -36,7 +36,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  plan.isCurrentUserOwner = req.user && plan.user && plan.user._id.toString() === req.user._id.toString() ? true : false;
+  plan.isCurrentUserOwner = req.user && plan.createdBy && plan.createdBy._id.toString() === req.user._id.toString() ? true : false;
 
   res.jsonp(plan);
 };
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Plans
  */
 exports.list = function(req, res) { 
-  Plan.find().sort('-created').populate('user', 'displayName').exec(function(err, plans) {
+  Plan.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, plans) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.planByID = function(req, res, next, id) {
     });
   }
 
-  Plan.findById(id).populate('user', 'displayName').exec(function (err, plan) {
+  Plan.findById(id).populate('createdBy', 'displayName').exec(function (err, plan) {
     if (err) {
       return next(err);
     } else if (!plan) {

@@ -22,7 +22,7 @@ var DomainSchema = new Schema({
     default: 'active'
   },
   manager: {
-    type: Schema.ObjectId,
+    type: [Schema.ObjectId],
     ref: 'User'
   },
   created: {

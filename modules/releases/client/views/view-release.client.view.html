@@ -17,9 +17,9 @@
       Posted on
       <span data-ng-bind="vm.release.created | date:'mediumDate'"></span>
       by
-      <span data-ng-if="vm.release.user"
-            data-ng-bind="vm.release.user.displayName"></span>
-      <span data-ng-if="!vm.release.user">Deleted User</span>
+      <span data-ng-if="vm.release.createdBy"
+            data-ng-bind="vm.release.createdBy.displayName"></span>
+      <span data-ng-if="!vm.release.createdBy">Deleted User</span>
     </em>
   </small>
   <p class="lead" data-ng-bind="vm.release.content"></p>
