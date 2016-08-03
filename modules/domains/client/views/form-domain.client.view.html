@@ -13,6 +13,10 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="control-label" for="manager">Managers</label>
+          <multiple-autocomplete ng-model="vm.domain.manager" object-property="displayName" suggestions-arr="vm.userslist"></multiple-autocomplete>
+        </div>
+        <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.domain._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">

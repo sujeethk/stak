@@ -13,10 +13,10 @@ var TaskSchema = new Schema({
   category: String,
   highlight: Boolean,
   crqs: [String],
-  apps: {
-    type: [Schema.ObjectId],
+  apps: [{
+    type: Schema.ObjectId,
     ref: 'App' 
-  },
+  }],
   dcs: [String],
   status: String,
   sql: {
@@ -50,14 +50,14 @@ var TaskSchema = new Schema({
   updatedEnd: Date,
   actualStart: Date,
   actualEnd: Date,
-  poc: {
-    type: [Schema.ObjectId],
+  poc: [{
+    type: Schema.ObjectId,
     ref: 'User'
-  },
-  team: {
-    type: [Schema.ObjectId],
+  }],
+  team: [{
+    type: Schema.ObjectId,
     ref: 'Team'
-  },
+  }],
   contact: String,
   notes: String,
   lastPaged: Date,

@@ -79,10 +79,10 @@ var UserSchema = new Schema({
     primary: String,
     secondary: String
   },
-  domainAuthor: {
-    type: [Schema.ObjectId],
+  domainAuthor: [{
+    type: Schema.ObjectId,
     ref: 'Domain'
-  },
+  }],
   primaryDomain: {
     type: Schema.ObjectId,
     ref: 'Domain'

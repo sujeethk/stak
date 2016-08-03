@@ -81,7 +81,8 @@ exports.delete = function(req, res) {
  * List of Domains
  */
 exports.list = function(req, res) { 
-  Domain.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, domains) {
+  Domain.find().sort('-created').populate('createdBy')
+            .populate('manager.displayName').exec(function(err, domains) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +104,7 @@ exports.domainByID = function(req, res, next, id) {
     });
   }
 
-  Domain.findById(id).populate('createdBy', 'displayName').exec(function (err, domain) {
+  Domain.findById(id).populate('createdBy manager', 'displayName').exec(function (err, domain) {
     if (err) {
       return next(err);
     } else if (!domain) {

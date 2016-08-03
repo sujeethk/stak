@@ -21,10 +21,10 @@ var DomainSchema = new Schema({
     enum: ['active','inactive'],
     default: 'active'
   },
-  manager: {
-    type: [Schema.ObjectId],
+  manager: [{
+    type: Schema.ObjectId,
     ref: 'User'
-  },
+  }],
   created: {
     type: Date,
     default: Date.now

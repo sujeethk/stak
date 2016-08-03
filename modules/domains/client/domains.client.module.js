@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('domains');
+  app.registerModule('domains', ['multipleSelect']);
 })(ApplicationConfiguration);

@@ -37,6 +37,10 @@ var TeamSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
+  members: [{
+    type: Schema.ObjectId,
+    ref: 'User'
+  }],
   domain: {
     type: Schema.ObjectId,
     ref: 'Domain'
