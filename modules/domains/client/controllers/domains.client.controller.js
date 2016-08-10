@@ -17,9 +17,11 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
     vm.userslist = Admin.query(function (data) {
-      vm.userslist = data;
+      vm.userslist = data.diff(vm.domain.manager);
     });
+    
 
     // Remove existing Domain
     function remove() {

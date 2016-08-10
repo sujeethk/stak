@@ -65,14 +65,22 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var domain = req.domain ;
-
-  domain.remove(function(err) {
+  domain.status='inactive';
+  
+  domain.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
       res.jsonp(domain);
+    /*domain.remove(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(domain);*/
     }
   });
 };
@@ -81,7 +89,7 @@ exports.delete = function(req, res) {
  * List of Domains
  */
 exports.list = function(req, res) { 
-  Domain.find().sort('-created').populate('createdBy manager', 'displayName').exec(function(err, domains) {
+  Domain.find({ 'status':'active' }).sort('-created').populate('createdBy manager', 'displayName').exec(function(err, domains) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
