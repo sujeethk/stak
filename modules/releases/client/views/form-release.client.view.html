@@ -31,7 +31,7 @@
                     <i class="glyphicon glyphicon-calendar"></i>
                 </a>
             </span>
-            <input name="start" type="text" class="form-control" id="start" datepicker-options="{showWeeks:false,startingDay:1}" datepicker-popup="{{dateformat}}" ng-model="vm.release.start" is-open="opencal.start" close-text="Close" required/>
+            <input name="start" type="text" class="form-control" id="start" uib-datepicker-popup="{{dateformat}}" ng-model="vm.release.start" is-open="opencal.start" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
           </div>
           <div ng-messages="vm.form.releaseForm.start.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Release start date is required.</p>
@@ -47,7 +47,7 @@
                     <i class="glyphicon glyphicon-calendar"></i>
                 </a>
             </span>
-            <input name="end" type="text" class="form-control" id="end" datepicker-options="{showWeeks:false,startingDay:1}" datepicker-popup="{{dateformat}}" ng-model="vm.release.end" is-open="opencal.end" close-text="Close" required/>
+            <input name="end" type="text" class="form-control" id="end" datepicker-options="{showWeeks:false,startingDay:1}" uib-datepicker-popup="{{dateformat}}" ng-model="vm.release.end" is-open="opencal.end" close-text="Close" required/>
           </div>
           <div ng-messages="vm.form.releaseForm.end.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Release End date is required/incorrect format.</p>

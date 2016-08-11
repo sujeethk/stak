@@ -13,6 +13,8 @@
 
     vm.authentication = Authentication;
     vm.release = release;
+    vm.release.start = new Date(vm.release.start);
+    vm.release.end = new Date(vm.release.end);
     vm.error = null;
     vm.form = {};
     vm.cal = {};

@@ -18,7 +18,6 @@
     vm.remove = remove;
     vm.cancelform = cancelform;
     vm.save = save;
-    console.log(app);
     vm.userslist = Admin.query();
 
     vm.domainslist = DomainsService.query();
