@@ -14,7 +14,8 @@ var DomainSchema = new Schema({
     type: String,
     default: '',
     required: 'Please fill Domain name',
-    trim: true
+    trim: true,
+    unique: true
   },
   status: {
     type: String,

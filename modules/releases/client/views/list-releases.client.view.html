@@ -1,20 +1,43 @@
 <section>
   <div class="page-header">
-    <h1>Releases</h1>
+    <h1>Releases
+      <a class="btn btn-info pull-right" data-ui-sref="releases.create">
+        <i class="glyphicon glyphicon-plus"></i> <b>New</b>
+      </a>
+    </h1>
   </div>
   <div class="list-group">
-    <a data-ng-repeat="release in vm.releases"
-       data-ui-sref="releases.view({ releaseId: release._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span data-ng-bind="release.created | date:'mediumDate'"></span>
-        by
-        <span data-ng-if="release.createdBy" data-ng-bind="release.createdBy.displayName"></span>
-        <span data-ng-if="!release.createdBy">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" data-ng-bind="release.name"></h4>
-    </a>
+    <table st-table="releaseCollection" st-safe-src="vm.releases" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Release</th>
+          <th>Status</th>
+          <th>Start date</th>
+          <th>End date</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="release in releaseCollection">
+          <td>{{release.name}}</td>
+          <td>{{release.status}}</td>
+          <td>{{release.start | date}}</td>
+          <td>{{release.end | date}}</td>
+          <td>
+            <a class="btn btn-primary" data-ui-sref="releases.edit({ releaseId: release._id })">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-show="vm.releases.length>15">
+        <tr>
+          <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="vm.releases.$resolved && !vm.releases.length">
     No Releases yet, why don't you <a data-ui-sref="releases.create">create one</a>?

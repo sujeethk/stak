@@ -16,11 +16,10 @@
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
+    vm.cancelform = cancelform;
     vm.save = save;
 
-    vm.userslist = Admin.query(function (data) {
-      vm.userslist = data.diff(vm.domain.manager);
-    });
+    vm.userslist = Admin.query();
     
 
     // Remove existing Domain
@@ -28,6 +27,11 @@
       if (confirm('Are you sure you want to delete?')) {
         vm.domain.$remove($state.go('domains.list'));
       }
+    }
+
+    //Cancel and go to list view
+    function cancelform() {
+      $state.go('domains.list');
     }
 
     // Save Domain
@@ -45,8 +49,8 @@
       }
 
       function successCallback(res) {
-        $state.go('domains.view', {
-          domainId: res._id
+        $state.go('domains.list', {
+          //domainId: res._id
         });
       }
 
@@ -55,4 +59,36 @@
       }
     }
   }
+  angular
+    .module('domains').filter('propsFilter', function() {
+    return function(items, props) {
+      var out = [];
+
+      if (angular.isArray(items)) {
+        var keys = Object.keys(props);
+          
+        items.forEach(function(item) {
+          var itemMatches = false;
+
+          for (var i = 0; i < keys.length; i++) {
+            var prop = keys[i];
+            var text = props[prop].toLowerCase();
+            if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+              itemMatches = true;
+              break;
+            }
+          }
+
+          if (itemMatches) {
+            out.push(item);
+          }
+        });
+      } else {
+        // Let the output be the input untouched
+        out = items;
+      }
+
+      return out;
+    };
+  });
 })();

@@ -1,20 +1,41 @@
 <section>
   <div class="page-header">
-    <h1>Domains</h1>
+    <h1>Domains
+      <a class="btn btn-info pull-right" data-ui-sref="domains.create">
+        <i class="glyphicon glyphicon-plus"></i> <b>New</b>
+      </a>
+    </h1>
   </div>
   <div class="list-group">
-    <a data-ng-repeat="domain in vm.domains"
-       data-ui-sref="domains.view({ domainId: domain._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span data-ng-bind="domain.created | date:'mediumDate'"></span>
-        by
-        <span data-ng-if="domain.createdBy" data-ng-bind="domain.createdBy.displayName"></span>
-        <span data-ng-if="!domain.createdBy">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" data-ng-bind="domain.name"></h4>
-    </a>
+    <table st-table="domainCollection" st-safe-src="vm.domains" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Managers</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="domain in domainCollection">
+          <td>{{domain.name}}</td>
+          <td>{{domain.status}}</td>
+          <td><span ng-repeat="manager in domain.manager">{{manager.displayName}}, </span></td>
+          <td>
+            <a class="btn btn-primary" data-ui-sref="domains.edit({ domainId: domain._id })">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-show="vm.domains.length>15">
+        <tr>
+          <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="vm.domains.$resolved && !vm.domains.length">
     No Domains yet, why don't you <a data-ui-sref="domains.create">create one</a>?

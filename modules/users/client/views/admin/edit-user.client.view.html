@@ -1,9 +1,15 @@
 <section>
   <div class="page-header">
-    <h1>User <span ng-bind="user.username"></span></h1>
+    <h1>User <span ng-bind="user.username"></span>
+      <div class="pull-right" ng-show="user._id">
+        <a class="btn btn-danger" ng-click="remove();" ng-if="user._id !== authentication.user._id">
+          <i class="glyphicon glyphicon-trash"></i> <b> Delete</b>
+        </a>
+      </div>
+    </h1>
   </div>
   <div class="col-md-12">
-    <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
+    <form name="userForm" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="firstName">First Name</label>
@@ -22,14 +28,20 @@
         <div class="form-group" show-errors>
           <label class="control-label" for="roles">Roles</label>
           <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required />
+            <ui-select multiple name="roles" id="roles" ng-model="user.roles" theme="bootstrap" close-on-select="true" title="Choose a role" required>
+              <ui-select-match placeholder="Select roles...">{{$item}}</ui-select-match>
+              <ui-select-choices repeat="role in userroles | filter:$select.search">
+                {{role}}
+              </ui-select-choices>
+            </ui-select>
             <div ng-messages="userForm.roles.$error" role="alert">
               <p class="help-block error-text" ng-message="required">At least one role is required.</p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-default">
+          <input type="button"  ng-click="update(userForm.$valid)" value="Update" class="btn btn-primary">
+          <input type="button"  ng-click="cancelform()" value="Cancel" class="btn btn-default">
         </div>
         <div ng-show="error" class="text-danger">
           <strong ng-bind="error"></strong>

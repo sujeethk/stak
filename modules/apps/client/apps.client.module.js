@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('apps');
+  app.registerModule('apps', ['ui.select', 'ngSanitize']);
 })(ApplicationConfiguration);

@@ -11,7 +11,7 @@
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Releases',
+      title: 'Releases',
       state: 'releases.list'
     });
 

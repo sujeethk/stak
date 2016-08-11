@@ -18,12 +18,14 @@ var AppSchema = new Schema({
   },
   ait: {
     type: Number,
-    //required: 'Please fill AIT number',
-    trim: true
+    required: 'Please fill AIT number',
+    trim: true,
+    unique: true
   },
   status:{
     type: String,
-    enum: ['active', 'inactive']
+    enum: ['active', 'retired'],
+    default: 'active'
   },
   manager: {
     type: Schema.ObjectId,

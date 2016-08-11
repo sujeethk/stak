@@ -11,12 +11,12 @@
 
     // Add apps menu under admin since unable to add from apps folder
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Apps',
+      title: 'Apps',
       state: 'apps.list'
     });
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Domains',
+      title: 'Domains',
       state: 'domains.list'
     });
 

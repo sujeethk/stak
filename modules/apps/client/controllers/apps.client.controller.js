@@ -6,9 +6,9 @@
     .module('apps')
     .controller('AppsController', AppsController);
 
-  AppsController.$inject = ['$scope', '$state', 'Authentication', 'appResolve'];
+  AppsController.$inject = ['$scope', '$state', 'Authentication', 'appResolve', 'Admin', 'DomainsService'];
 
-  function AppsController ($scope, $state, Authentication, app) {
+  function AppsController ($scope, $state, Authentication, app, Admin, DomainsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -16,13 +16,23 @@
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
+    vm.cancelform = cancelform;
     vm.save = save;
+    console.log(app);
+    vm.userslist = Admin.query();
+
+    vm.domainslist = DomainsService.query();
 
     // Remove existing App
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
         vm.app.$remove($state.go('apps.list'));
       }
+    }
+
+    // Cancel and go to list
+    function cancelform() {
+        $state.go('apps.list');
     }
 
     // Save App

@@ -14,7 +14,8 @@ var ReleaseSchema = new Schema({
     type: String,
     default: '',
     required: 'Please fill Release name',
-    trim: true
+    trim: true,
+    unique: true
   },
   status: {
     type: String,
