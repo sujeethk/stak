@@ -20,7 +20,7 @@
     vm.cancelform = cancelform;
     vm.save = save;
 
-    $scope.dateformat = 'shortDate';
+    $scope.dateformat = 'MMM dd, yyyy';
 
     // Remove existing Release
     function remove() {
@@ -52,9 +52,7 @@
       }
 
       function successCallback(res) {
-        $state.go('releases.list', {
-          //releaseId: res._id
-        });
+        $state.go('releases.list');
       }
 
       function errorCallback(res) {

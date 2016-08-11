@@ -32,7 +32,7 @@
 
     // Cancel and go to list
     function cancelform() {
-        $state.go('apps.list');
+      $state.go('apps.list');
     }
 
     // Save App
@@ -50,9 +50,7 @@
       }
 
       function successCallback(res) {
-        $state.go('apps.view', {
-          appId: res._id
-        });
+        $state.go('apps.list');
       }
 
       function errorCallback(res) {

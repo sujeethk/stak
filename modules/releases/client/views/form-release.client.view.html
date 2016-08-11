@@ -51,6 +51,8 @@
           </div>
           <div ng-messages="vm.form.releaseForm.end.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Release End date is required/incorrect format.</p>
+            <p class="help-block error-text" ng-message="date">Release end date is incorrect.</p>
+            <p class="help-block error-text" ng-message="">Release end date is invalid.</p>
           </div>
         </div>
         <div class="form-group">

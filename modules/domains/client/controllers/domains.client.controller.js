@@ -21,7 +21,6 @@
 
     vm.userslist = Admin.query();
     
-
     // Remove existing Domain
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
@@ -49,9 +48,7 @@
       }
 
       function successCallback(res) {
-        $state.go('domains.list', {
-          //domainId: res._id
-        });
+        $state.go('domains.list');
       }
 
       function errorCallback(res) {
@@ -59,8 +56,8 @@
       }
     }
   }
-  angular
-    .module('domains').filter('propsFilter', function() {
+
+  angular.module('domains').filter('propsFilter', function() {
     return function(items, props) {
       var out = [];
 

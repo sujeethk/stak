@@ -33,7 +33,7 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
   // convert mongoose document to JSON
   var team = req.team ? req.team.toJSON() : {};
-
+  console.log(req);
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   team.isCurrentUserOwner = req.user && team.createdBy && team.createdBy._id.toString() === req.user._id.toString() ? true : false;
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Teams
  */
 exports.list = function(req, res) { 
-  Team.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, teams) {
+  Team.find().sort('status name').populate('manager createdBy primarypoc domain', 'displayName displayName displayName name').exec(function(err, teams) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.teamByID = function(req, res, next, id) {
     });
   }
 
-  Team.findById(id).populate('createdBy', 'displayName').exec(function (err, team) {
+  Team.findById(id).populate('manager createdBy primarypoc secondarypoc members domain', 'displayName displayName displayName displayName displayName name').exec(function (err, team) {
     if (err) {
       return next(err);
     } else if (!team) {
