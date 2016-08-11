@@ -6,9 +6,9 @@
     .module('domains')
     .controller('DomainsController', DomainsController);
 
-  DomainsController.$inject = ['$scope', '$http','$state', 'Authentication', 'domainResolve', 'Admin'];
+  DomainsController.$inject = ['$scope', '$http','$state', 'Authentication', 'domainResolve', 'Userslist'];
 
-  function DomainsController ($scope, $http, $state, Authentication, domain, Admin) {
+  function DomainsController ($scope, $http, $state, Authentication, domain, Userslist) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -19,7 +19,7 @@
     vm.cancelform = cancelform;
     vm.save = save;
 
-    vm.userslist = Admin.query();
+    vm.userslist = Userslist.query();
     
     // Remove existing Domain
     function remove() {

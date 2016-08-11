@@ -5,13 +5,62 @@
   <div class="col-md-12">
     <form name="vm.form.planForm" class="form-horizontal" ng-submit="vm.save(vm.form.planForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.plan.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.planForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Plan name is required.</p>
+      <uib-tabset active="activeForm">
+        <uib-tab index="0" heading="Overview">
+          <div class="form-group" show-errors>
+            <label class="control-label" for="name">Name</label>
+            <input name="name" type="text" ng-model="vm.plan.name" id="name" class="form-control" placeholder="Name" required>
+            <div ng-messages="vm.form.planForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan name is required.</p>
+            </div>
           </div>
-        </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="author">Author</label>
+            <ui-select name="author" id="author" ng-model="vm.plan.author" theme="bootstrap" required>
+              <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
+              <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
+                <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+                <small ng-bind-html="user.email | highlight: $select.search"></small>
+              </ui-select-choices>
+            </ui-select>
+            <div ng-messages="vm.form.planForm.author.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan Author is required.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <textarea rows="3" ng-model="vm.plan.description" class="form-control" placeholder="Description"></textarea>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="domain">Domain</label>
+            <ui-select name="domain" id="domain" ng-model="vm.plan.domain" theme="bootstrap" required>
+              <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
+              <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
+                <div ng-bind-html="domain.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+            <div ng-messages="vm.form.teamForm.domain.$error" role="alert">
+              <p class="help-block error-text">Plan Domain is required.</p>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="1" heading="Status">
+          <div class="form-group" show-errors>
+            <label class="control-label" for="category">Category</label>
+            <select class="form-control" name="category" id="category" ng-model="vm.plan.category" ng-options="o as o for o in vm.options.category" required></select>
+            <div ng-messages="vm.form.planForm.category.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan category is required.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">CRQs</label>
+            <input type="text" ng-model="vm.plan.crqs" class="form-control" placeholder="CRQs">
+          </div>
+        </uib-tab>
+        <uib-tab index="2" heading="Time/Date">
+
+        </uib-tab>
+      </uib-tabset>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.plan._id ? 'Update' : 'Create'}}</button>
         </div>

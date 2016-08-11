@@ -6,9 +6,9 @@
     .module('apps')
     .controller('AppsController', AppsController);
 
-  AppsController.$inject = ['$scope', '$state', 'Authentication', 'appResolve', 'Admin', 'DomainsService'];
+  AppsController.$inject = ['$scope', '$state', 'Authentication', 'appResolve', 'Userslist', 'DomainsService'];
 
-  function AppsController ($scope, $state, Authentication, app, Admin, DomainsService) {
+  function AppsController ($scope, $state, Authentication, app, Userslist, DomainsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -18,7 +18,7 @@
     vm.remove = remove;
     vm.cancelform = cancelform;
     vm.save = save;
-    vm.userslist = Admin.query();
+    vm.userslist = Userslist.query();
 
     vm.domainslist = DomainsService.query();
 

@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
-var TaskSchema = require('./task.server.model');
 /**
  * Plan Schema
  */
@@ -26,7 +25,7 @@ var PlanSchema = new Schema({
     ref: 'Domain' 
   },
   category: String,
-  crqs: [String],
+  crqs: String,
   apps: {
     type: [Schema.ObjectId],
     ref: 'App'
@@ -76,8 +75,7 @@ var PlanSchema = new Schema({
     ref: 'User'
   },
   lastModified: Date,
-  subscribers: String,
-  tasks: [TaskSchema]
+  subscribers: String
 });
 
 mongoose.model('Plan', PlanSchema);

@@ -6,9 +6,9 @@
     .module('plans')
     .controller('PlansController', PlansController);
 
-  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve'];
+  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve', 'Userslist', 'DomainsService'];
 
-  function PlansController ($scope, $state, Authentication, plan) {
+  function PlansController ($scope, $state, Authentication, plan, Userslist, DomainsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,12 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.options = {};
+    vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
+    vm.userslist = Userslist.query();
+    vm.tabinValid = { tab0: false, tab1: false, tab2: false };
+    
+    vm.domainslist = DomainsService.query();
 
     // Remove existing Plan
     function remove() {
