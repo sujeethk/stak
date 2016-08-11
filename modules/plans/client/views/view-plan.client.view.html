@@ -1,0 +1,69 @@
+<section>
+  <div class="page-header">
+    <h1 data-ng-bind="vm.plan.name"></h1>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.plan.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="plans.edit({ planId: vm.plan._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span data-ng-bind="vm.plan.created | date:'mediumDate'"></span>
+      by
+      <span data-ng-if="vm.plan.createdBy"
+            data-ng-bind="vm.plan.createdBy.displayName"></span>
+      <span data-ng-if="!vm.plan.createdBy">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.plan.content"></p>
+<div class="nestedDemo">  
+  <script type="text/ng-template" id="list.html">
+    <ul dnd-list="list">
+        <li ng-repeat="item in list"
+            dnd-draggable="item"
+            dnd-effect-allowed="move"
+            dnd-moved="list.splice($index, 1)"
+            dnd-selected="models.selected = item"
+            ng-class="{selected: models.selected === item}"
+            ng-include="item.type + '.html'">
+        </li>
+    </ul>
+</script>
+
+<!-- This template is responsible for rendering a container element. It uses
+     the above list template to render each container column -->
+
+<script type="text/ng-template" id="container.html">
+    <div class="container-element box box-blue">
+        <h3>Container {{item.id}}</h3>
+        <div class="column" ng-repeat="list in item.columns" ng-include="'list.html'"></div>
+        <div class="clearfix"></div>
+    </div>
+</script>
+
+<!-- Template for a normal list item -->
+<script type="text/ng-template" id="item.html">
+    <div class="item">Item {{item.id}}</div>
+</script>
+
+<!-- Main area with dropzones and source code -->
+<div class="col-md-10">
+    <div class="row ">
+        <div ng-repeat="(zone, list) in models.dropzones" class=" col-md-6">
+            <div class=" dropzone box box-yellow">
+                <!-- The dropzone also uses the list template -->
+                <h3>Dropzone {{zone}}</h3>
+                <div ng-include="'list.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>

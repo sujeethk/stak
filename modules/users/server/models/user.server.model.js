@@ -70,16 +70,48 @@ var UserSchema = new Schema({
     type: String,
     default: 'modules/users/client/img/profile/default.png'
   },
+  status: {
+    type: String,
+    enum: ['active', 'locked', 'inactive', 'deleted'],
+    default: 'active'
+  },
+  phone:{
+    primary: String,
+    secondary: String
+  },
+  domainAuthor: [{
+    type: Schema.ObjectId,
+    ref: 'Domain'
+  }],
+  primaryDomain: {
+    type: Schema.ObjectId,
+    ref: 'Domain'
+  },
+  team: {
+    type: Schema.ObjectId,
+    ref: 'Team'
+  },
+  manager: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  engage:{
+    email: Boolean,
+    phone: Boolean,
+    text: Boolean,
+    page :Boolean,
+    dg: Boolean
+  },
   provider: {
     type: String,
-    required: 'Provider is required'
+    default: 'local'
   },
   providerData: {},
   additionalProvidersData: {},
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['user', 'coord', 'manager', 'admin']
     }],
     default: ['user'],
     required: 'Please provide at least one role'

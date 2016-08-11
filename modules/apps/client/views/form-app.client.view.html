@@ -1,0 +1,69 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.app._id ? 'Edit App' : 'New App'}}
+      <div class="pull-right" ng-show="vm.app._id">
+        <a class="btn btn-danger" data-ng-click="vm.remove()">
+          <i class="glyphicon glyphicon-trash"></i> <b> Delete</b>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.appForm" class="form-horizontal" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.app.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.appForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">App name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="ait">AIT</label>
+          <input name="ait" type="number" max="99999" ng-model="vm.app.ait" id="ait" class="form-control" placeholder="AIT #" required>
+          <div ng-messages="vm.form.appForm.ait.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">App AIT is required.</p>
+            <p class="help-block error-text" ng-message="max">App AIT should be less than 6 digits.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="manager">Manager</label>
+          <ui-select name="manager" id="manager" ng-model="vm.app.manager" theme="bootstrap" required>
+            <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
+            <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
+              <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+              <small ng-bind-html="user.email | highlight: $select.search"></small>
+            </ui-select-choices>
+          </ui-select>
+          <div ng-messages="vm.form.appForm.manager.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">App Manager is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="domain">Domain</label>
+          <ui-select name="domain" id="domain" ng-model="vm.app.domain" theme="bootstrap" required>
+            <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
+              <div ng-bind-html="domain.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+          <div ng-messages="vm.form.appForm.domain.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">App Domain is required.</p>
+          </div>
+        </div>
+        <div class="form-group" ng-show="vm.app._id">
+          <label class="control-label" for="status">Status</label><br/>
+          <input type="radio" name="status" ng-model="vm.app.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" ng-model="vm.app.status" id="status"  value="retired"> Retired
+        </div>
+        <div class="form-group">
+          <button type="button" ng-click="vm.save(vm.form.appForm.$valid)" class="btn btn-primary">{{vm.app._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ng-click="vm.cancelform()" class="btn btn-default">Cancel</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

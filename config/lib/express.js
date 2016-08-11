@@ -17,7 +17,8 @@ var config = require('../config'),
   helmet = require('helmet'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
-  path = require('path');
+  path = require('path'),
+  lusca = require('lusca');
 
 /**
  * Initialize local variables
@@ -31,7 +32,6 @@ module.exports.initLocalVariables = function (app) {
   }
   app.locals.keywords = config.app.keywords;
   app.locals.googleAnalyticsTrackingID = config.app.googleAnalyticsTrackingID;
-  app.locals.facebookAppId = config.facebook.clientID;
   app.locals.jsFiles = config.files.client.js;
   app.locals.cssFiles = config.files.client.css;
   app.locals.livereload = config.livereload;
@@ -122,6 +122,9 @@ module.exports.initSession = function (app, db) {
       collection: config.sessionCollection
     })
   }));
+
+  // Add Lusca CSRF Middleware
+  app.use(lusca(config.csrf));
 };
 
 /**
@@ -139,10 +142,10 @@ module.exports.initModulesConfiguration = function (app, db) {
 module.exports.initHelmetHeaders = function (app) {
   // Use helmet to secure Express headers
   var SIX_MONTHS = 15778476000;
-  app.use(helmet.xframe());
+  app.use(helmet.frameguard());
   app.use(helmet.xssFilter());
-  app.use(helmet.nosniff());
-  app.use(helmet.ienoopen());
+  app.use(helmet.noSniff());
+  app.use(helmet.ieNoOpen());
   app.use(helmet.hsts({
     maxAge: SIX_MONTHS,
     includeSubdomains: true,
@@ -229,17 +232,17 @@ module.exports.init = function (db) {
   // Initialize Express view engine
   this.initViewEngine(app);
 
-  // Initialize Express session
-  this.initSession(app, db);
-
-  // Initialize Modules configuration
-  this.initModulesConfiguration(app);
-
   // Initialize Helmet security headers
   this.initHelmetHeaders(app);
 
   // Initialize modules static client routes
   this.initModulesClientRoutes(app);
+
+  // Initialize Express session
+  this.initSession(app, db);
+
+  // Initialize Modules configuration
+  this.initModulesConfiguration(app);
 
   // Initialize modules server authorization policies
   this.initModulesServerPolicies(app);

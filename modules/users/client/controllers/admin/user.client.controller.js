@@ -4,7 +4,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
   function ($scope, $state, Authentication, userResolve) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
-
+    $scope.userroles = ['user', 'coord', 'manager', 'admin'];
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
         if (user) {
@@ -17,6 +17,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
           });
         }
       }
+    };
+
+    $scope.cancelform = function () {
+      $state.go('admin.users');
     };
 
     $scope.update = function (isValid) {

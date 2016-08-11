@@ -1,0 +1,47 @@
+<section>
+  <div class="page-header">
+    <h1>Apps
+      <a class="btn btn-info pull-right" data-ui-sref="apps.create">
+        <i class="glyphicon glyphicon-plus"></i> <b>New</b>
+      </a>
+    </h1>
+  </div>
+  <div class="list-group">
+    <table st-table="appCollection" st-safe-src="vm.apps" class="table table-hover">
+      <thead>
+        <tr>
+          <th>App Name</th>
+          <th>AIT #</th>
+          <th>Status</th>
+          <th>Manager</th>
+          <th>Domain</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="app in appCollection">
+          <td>{{app.name}}</td>
+          <td>{{app.ait}}</td>
+          <td>{{app.status}}</td>
+          <td>{{app.manager.displayName}}</td>
+          <td>{{app.domain.name}}</td>
+          <td>
+            <a class="btn btn-primary" data-ui-sref="apps.edit({ appId: app._id })">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-show="vm.apps.length>15">
+        <tr>
+          <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.apps.$resolved && !vm.apps.length">
+    No Apps yet, why don't you <a data-ui-sref="apps.create">create one</a>?
+  </div>
+</section>

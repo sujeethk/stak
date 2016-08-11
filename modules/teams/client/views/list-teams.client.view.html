@@ -1,0 +1,47 @@
+<section>
+  <div class="page-header">
+    <h1>Teams
+      <a class="btn btn-info pull-right" data-ui-sref="teams.create">
+        <i class="glyphicon glyphicon-plus"></i> <b>New</b>
+      </a>
+    </h1>
+  </div>
+  <div class="list-group">
+    <table st-table="teamCollection" st-safe-src="vm.teams" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Team Name</th>
+          <th>Status</th>
+          <th>Manager</th>
+          <th>Primary POC</th>
+          <th>Domain</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="team in teamCollection">
+          <td>{{team.name}}</td>
+          <td>{{team.status}}</td>
+          <td>{{team.manager.displayName}}</td>
+          <td>{{team.primarypoc.displayName}}</td>
+          <td>{{team.domain.name}}</td>
+          <td>
+            <a class="btn btn-primary" data-ui-sref="teams.edit({ teamId: team._id })">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-show="vm.teams.length>15">
+        <tr>
+          <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.teams.$resolved && !vm.teams.length">
+    No Teams yet, why don't you <a data-ui-sref="teams.create">create one</a>?
+  </div>
+</section>

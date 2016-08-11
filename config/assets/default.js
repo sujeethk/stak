@@ -5,7 +5,8 @@ module.exports = {
     lib: {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.css'
+        'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+        'public/lib/angular-ui-select/dist/select.css'
       ],
       js: [
         'public/lib/angular/angular.js',
@@ -13,9 +14,12 @@ module.exports = {
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-ui-router/release/angular-ui-router.js',
-        'public/lib/angular-ui-utils/ui-utils.js',
+        'public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+        'public/lib/angular-ui-select/dist/select.js',
+        'public/lib/angular-sanitize/angular-sanitize.js',
+        'public/lib/angular-smart-table/dist/smart-table.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-        'public/lib/angular-file-upload/angular-file-upload.js',
+        'public/lib/angular-file-upload/dist/angular-file-upload.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
@@ -39,7 +43,6 @@ module.exports = {
     templates: ['build/templates.js']
   },
   server: {
-    gruntConfig: 'gruntfile.js',
     gulpConfig: 'gulpfile.js',
     allJS: ['server.js', 'config/**/*.js', 'modules/*/server/**/*.js'],
     models: 'modules/*/server/models/**/*.js',

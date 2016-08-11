@@ -1,0 +1,68 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.release._id ? 'Edit Release' : 'New Release'}}
+      <div class="pull-right" ng-show="vm.release._id">
+        <a class="btn btn-danger" data-ng-click="vm.remove()">
+          <i class="glyphicon glyphicon-trash"></i> <b> Delete</b>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.releaseForm" class="form-horizontal" ng-submit="vm.save(vm.form.releaseForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.release.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.releaseForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Release name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" ng-show="vm.release._id">
+          <label class="control-label" for="status">Status</label><br/>
+          <input type="radio" name="status" ng-model="vm.release.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" ng-model="vm.release.status" id="status"  value="inactive"> Inactive
+        </div>
+        <div class="form-group" show-errors>
+        <label class="control-label" for="start">Start Date</label>
+          <div class="input-group">
+            <span class="input-group-btn">
+                <a class="btn btn-default" data-ng-click="opencal.start='true'">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </a>
+            </span>
+            <input name="start" type="text" class="form-control" id="start" uib-datepicker-popup="{{dateformat}}" ng-model="vm.release.start" is-open="opencal.start" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
+          </div>
+          <div ng-messages="vm.form.releaseForm.start.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Release start date is required.</p>
+            <p class="help-block error-text" ng-message="date">Release start date is incorrect.</p>
+            <p class="help-block error-text" ng-message="">Release start date is invalid.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="end">End Date</label>
+          <div class="input-group">
+            <span class="input-group-btn">
+                <a class="btn btn-default" data-ng-click="opencal.end='true'">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </a>
+            </span>
+            <input name="end" type="text" class="form-control" id="end" datepicker-options="{showWeeks:false,startingDay:1}" uib-datepicker-popup="{{dateformat}}" ng-model="vm.release.end" is-open="opencal.end" close-text="Close" required/>
+          </div>
+          <div ng-messages="vm.form.releaseForm.end.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Release End date is required/incorrect format.</p>
+            <p class="help-block error-text" ng-message="date">Release end date is incorrect.</p>
+            <p class="help-block error-text" ng-message="">Release end date is invalid.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="button" data-ng-click="vm.save(vm.form.releaseForm.$valid)" class="btn btn-primary">{{vm.release._id ? 'Update' : 'Create'}}</button>
+          <button type="button" data-ng-click="vm.cancelform()" class="btn btn-default">Cancel</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -30,6 +30,7 @@ exports.signup = function (req, res) {
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
 
+
   // Then save the user
   user.save(function (err) {
     if (err) {
@@ -86,6 +87,7 @@ exports.signout = function (req, res) {
 /**
  * OAuth provider call
  */
+/*
 exports.oauthCall = function (strategy, scope) {
   return function (req, res, next) {
     // Set redirection path on session.
@@ -97,10 +99,11 @@ exports.oauthCall = function (strategy, scope) {
     passport.authenticate(strategy, scope)(req, res, next);
   };
 };
-
+*/
 /**
  * OAuth callback
  */
+/*
 exports.oauthCallback = function (strategy) {
   return function (req, res, next) {
     // Pop redirect URL from session
@@ -124,10 +127,11 @@ exports.oauthCallback = function (strategy) {
     })(req, res, next);
   };
 };
-
+*/
 /**
  * Helper function to save or update a OAuth user profile
  */
+/* 
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
   if (!req.user) {
     // Define a search query fields
@@ -202,10 +206,11 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
     }
   }
 };
-
+*/
 /**
  * Remove OAuth provider
  */
+/*
 exports.removeOAuthProvider = function (req, res, next) {
   var user = req.user;
   var provider = req.query.provider;
@@ -242,3 +247,4 @@ exports.removeOAuthProvider = function (req, res, next) {
     }
   });
 };
+*/
