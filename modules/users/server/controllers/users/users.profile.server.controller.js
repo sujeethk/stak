@@ -103,7 +103,7 @@ exports.me = function (req, res) {
 };
 
 exports.list = function (req, res) {
-  User.find({status: 'active'}, 'displayName email').sort('firstName').exec(function (err, users) {
+  User.find({ status: 'active' }, 'displayName email').sort('firstName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

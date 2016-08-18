@@ -39,7 +39,7 @@
                 <div ng-bind-html="domain.name | highlight: $select.search"></div>
               </ui-select-choices>
             </ui-select>
-            <div ng-messages="vm.form.teamForm.domain.$error" role="alert">
+            <div ng-messages="vm.form.planForm.domain.$error" role="alert">
               <p class="help-block error-text">Plan Domain is required.</p>
             </div>
           </div>
@@ -55,6 +55,46 @@
           <div class="form-group">
             <label class="control-label">CRQs</label>
             <input type="text" ng-model="vm.plan.crqs" class="form-control" placeholder="CRQs">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="apps">Applications</label>
+            <ui-select multiple ng-model="vm.plan.apps" theme="bootstrap">
+              <ui-select-match placeholder="Select applications...">{{$item.name}} &lt;{{$item.ait}}&gt;</ui-select-match>
+              <ui-select-choices repeat="application in vm.appslist | propsFilter: {name: $select.search, ait: $select.search}">
+                <div ng-bind-html="application.name | highlight: $select.search"></div>
+                <small>
+                  ait: <span ng-bind-html="''+application.ait | highlight: $select.search"></span>
+                </small>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="dcs">Datacenter(s)</label>
+            <ui-select multiple ng-model="vm.plan.dcs" theme="bootstrap" close-on-select="false">
+              <ui-select-match placeholder="Select applications...">{{$item}}</ui-select-match>
+              <ui-select-choices repeat="dc in vm.options.dcs | filter: $select.search">
+                <div ng-bind-html="dc | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+          <div ng-show="vm.plan._id" class="form-group" show-errors>
+            <label class="control-label" for="status">Status</label>
+            <select class="form-control" name="status" id="status" ng-model="vm.plan.status" ng-options="o as o for o in vm.options.status" required></select>
+            <div ng-messages="vm.form.planForm.status.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan status is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="release">Release</label>
+            <ui-select name="release" id="release" ng-model="vm.plan.release" theme="bootstrap" required>
+              <ui-select-match placeholder="Select or search a release in the list...">{{$select.selected.name}}</ui-select-match>
+              <ui-select-choices repeat="release in vm.releaseslist | filter: $select.search">
+                <div ng-bind-html="release.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+            <div ng-messages="vm.form.planForm.release.$error" role="alert">
+              <p class="help-block error-text">Plan Release is required.</p>
+            </div>
           </div>
         </uib-tab>
         <uib-tab index="2" heading="Time/Date">

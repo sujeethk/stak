@@ -6,9 +6,9 @@
     .module('plans')
     .controller('PlansController', PlansController);
 
-  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve', 'Userslist', 'DomainsService'];
+  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService'];
 
-  function PlansController ($scope, $state, Authentication, plan, Userslist, DomainsService) {
+  function PlansController ($scope, $state, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -19,10 +19,13 @@
     vm.save = save;
     vm.options = {};
     vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
+    vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
+    vm.options.status = ['Draft', 'Final', 'Completed', 'Canceled'];
+
     vm.userslist = Userslist.query();
-    vm.tabinValid = { tab0: false, tab1: false, tab2: false };
-    
     vm.domainslist = DomainsService.query();
+    vm.appslist = AppsService.query();
+    vm.releaseslist = ReleasesService.query();
 
     // Remove existing Plan
     function remove() {
@@ -55,100 +58,36 @@
         vm.error = res.data.message;
       }
     }
-
-    $scope.models = {
-      selected: null,
-      templates: [{
-        type: 'item',
-        id: 2
-      }, {
-        type: 'container',
-        id: 1,
-        columns: [
-          [],
-          []
-        ]
-      }],
-      dropzones: {
-        'A': [{
-          'type': 'container',
-          'id': 1,
-          'columns': [
-            [{
-              'type': 'item',
-              'id': '1'
-            }, {
-              'type': 'item',
-              'id': '2'
-            }],
-            [{
-              'type': 'item',
-              'id': '3'
-            }]
-          ]
-        }, {
-          'type': 'item',
-          'id': '4'
-        }, {
-          'type': 'item',
-          'id': '5'
-        }, {
-          'type': 'item',
-          'id': '6'
-        }],
-        'B': [{
-          'type': 'item',
-          'id': 7
-        }, {
-          'type': 'item',
-          'id': '8'
-        }, {
-          'type': 'container',
-          'id': '2',
-          'columns': [
-            [{
-              'type': 'item',
-              'id': '9'
-            }, {
-              'type': 'item',
-              'id': '10'
-            }, {
-              'type': 'item',
-              'id': '11'
-            }],
-            [{
-              'type': 'item',
-              'id': '12'
-            }, {
-              'type': 'container',
-              'id': '3',
-              'columns': [
-                [{
-                  'type': 'item',
-                  'id': '13'
-                }],
-                [{
-                  'type': 'item',
-                  'id': '14'
-                }]
-              ]
-            }, {
-              'type': 'item',
-              'id': '15'
-            }, {
-              'type': 'item',
-              'id': '16'
-            }]
-          ]
-        }, {
-          'type': 'item',
-          'id': 16
-        }]
-      }
-    };
-
-    $scope.$watch('models.dropzones', function(model) {
-      $scope.modelAsJson = angular.toJson(model, true);
-    }, true);
   }
+  angular.module('plans').filter('propsFilter', function() {
+    return function(items, props) {
+      var out = [];
+
+      if (angular.isArray(items)) {
+        var keys = Object.keys(props);
+          
+        items.forEach(function(item) {
+          var itemMatches = false;
+
+          for (var i = 0; i < keys.length; i++) {
+            var prop = keys[i];
+            var text = props[prop].toLowerCase();
+            if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+              itemMatches = true;
+              break;
+            }
+          }
+
+          if (itemMatches) {
+            out.push(item);
+          }
+        });
+      } else {
+        // Let the output be the input untouched
+        out = items;
+      }
+
+      return out;
+    };
+  });
 })();

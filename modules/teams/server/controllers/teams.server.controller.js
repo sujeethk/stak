@@ -102,7 +102,7 @@ exports.teamByID = function(req, res, next, id) {
     });
   }
 
-  Team.findById(id).populate('manager createdBy primarypoc secondarypoc members domain', 'displayName displayName displayName displayName displayName name').exec(function (err, team) {
+  Team.findById(id).populate('manager createdBy primarypoc secondarypoc members domain', 'displayName displayName displayName displayName displayName email name').exec(function (err, team) {
     if (err) {
       return next(err);
     } else if (!team) {

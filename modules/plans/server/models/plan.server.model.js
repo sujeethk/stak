@@ -19,19 +19,25 @@ var PlanSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  description: String,
+  description: {
+    type: String,
+    default: ''
+  },
   domain: {
     type: Schema.ObjectId,
     ref: 'Domain' 
   },
   category: String,
   crqs: String,
-  apps: {
-    type: [Schema.ObjectId],
+  apps: [{
+    type: Schema.ObjectId,
     ref: 'App'
-  },
+  }],
   dcs: [String],
-  status: String,
+  status: {
+    type: String,
+    default: 'Draft'
+  },
   execution: {
     completion: Number,
     status: String,
@@ -48,12 +54,17 @@ var PlanSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Release'
   },
-  duration: Number,
-  lock: Boolean,
-  edit: Boolean,
-  editby: {
-    type: Schema.ObjectId,
-    ref: 'User'
+  duration: {
+    type: Number,
+    default: 0
+  },
+  lock: {
+    type: Boolean,
+    default: false
+  },
+  edit: {
+    type: Boolean,
+    default: true
   },
   autolock: Date,
   startTime: Date,

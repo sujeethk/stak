@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('plans',['dndLists']);
+  app.registerModule('plans', ['dndLists']);
 })(ApplicationConfiguration);

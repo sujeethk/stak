@@ -1,48 +1,51 @@
 <section>
-  <div class="page-header">
-    <h1>{{vm.domain._id ? 'Edit Domain' : 'New Domain'}}
-      <div class="pull-right" ng-show="vm.domain._id">
-        <a class="btn btn-danger" data-ng-click="vm.remove()">
-          <i class="glyphicon glyphicon-trash"></i> <b> Delete</b>
-        </a>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h1>
+        <span>{{vm.domain._id ? 'Edit Domain' : 'New Domain'}}</span>
+      </h1>
+      <span flex></span>
+      <md-button class="md-raised" aria-label="Delete Domain" data-ng-click="vm.remove()">
+        <i class="glyphicon glyphicon-trash"></i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content layout-padding>
+    <div>
+    <form name="vm.form.domainForm">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Domain Name</label>
+        <input name="domain" ng-model="vm.domain.name" required>
+        <div ng-messages="vm.form.domainForm.name.$error" role="alert">
+          <div ng-message="required" class="my-message">You must provide a domain name.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm ng-show="vm.domain._id">
+        <label>Status</label>
+        <md-switch ng-model="vm.domain.status" ng-true-value="'active'" ng-false-value="'inactive'" aria-label="Status">
+          {{ vm.domain.status }}
+        </md-switch>
+      </md-input-container>
+      <md-input-container class="md-block autocomplete" flex-gt-sm>
+        <label>Managers</label>
+        <md-contact-chips
+          ng-model="vm.domain.manager"
+          md-contacts="vm.querySearch($query)"
+          md-contact-name="displayName"
+          md-contact-email="email"
+          md-require-match="true"
+          md-highlight-flags="i"
+          placeholder="Managers..">
+        </md-contact-chips>
+      </md-input-container>
+      <div>
+        <md-button class="md-raised md-primary" data-ng-click="vm.save(vm.form.domainForm.$valid)">{{vm.domain._id ? 'Update' : 'Create'}}</md-button>
+        <md-button class="md-raised" data-ng-click="vm.cancelform()">Cancel</md-button>
       </div>
-    </h1>
-  </div>
-  <div class="col-md-12">
-    <form name="vm.form.domainForm" class="form-horizontal" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.domain.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.domainForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Domain name is required.</p>
-          </div>
-        </div>
-        <div class="form-group" ng-show="vm.domain._id">
-          <label class="control-label" for="status">Status</label><br/>
-          <input type="radio" name="status" ng-model="vm.domain.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="status" ng-model="vm.domain.status" id="status"  value="inactive"> Inactive
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="manager">Managers</label>
-          <ui-select multiple ng-model="vm.domain.manager" theme="bootstrap" sortable="true" close-on-select="false">
-            <ui-select-match placeholder="Select managers...">{{$item.displayName}}</ui-select-match>
-            <ui-select-choices repeat="user in vm.userslist | propsFilter: {displayName: $select.search}">
-              <div ng-bind-html="user.displayName | highlight: $select.search"></div>
-              <small>
-                email: {{user.email}}
-              </small>
-            </ui-select-choices>
-          </ui-select>
-         </div>
-        <div class="form-group">
-          <button type="button" data-ng-click="vm.save(vm.form.domainForm.$valid)" class="btn btn-primary">{{vm.domain._id ? 'Update' : 'Create'}}</button>
-          <button type="button" data-ng-click="vm.cancelform()" class="btn btn-default">Cancel</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+      </div>
     </form>
-  </div>
+    </div>
+  </md-content>
 </section>
