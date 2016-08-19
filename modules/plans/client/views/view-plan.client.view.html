@@ -1,6 +1,7 @@
 <section>
   <div class="page-header">
     <h1 data-ng-bind="vm.plan.name"></h1>
+    <a ui-sref="tasks.list({planId: vm.plan._id})">View Tasks</a>
   </div>
   <div class="pull-right"
        data-ng-show="vm.plan.isCurrentUserOwner">

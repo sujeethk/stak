@@ -11,7 +11,7 @@
     $stateProvider
       .state('tasks', {
         abstract: true,
-        url: '/tasks',
+        url: '/plans/:planId/tasks',
         template: '<ui-view/>'
       })
       .state('tasks.list', {
@@ -63,7 +63,7 @@
       });
   }
 
-  getTask.$inject = ['$stateParams', 'TasksService'];
+  getTask.$inject = ['$stateParams', 'TasksService', 'PlansService'];
 
   function getTask($stateParams, TasksService) {
     return TasksService.get({

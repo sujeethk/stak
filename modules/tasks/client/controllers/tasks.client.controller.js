@@ -6,13 +6,14 @@
     .module('tasks')
     .controller('TasksController', TasksController);
 
-  TasksController.$inject = ['$scope', '$state', 'Authentication', 'taskResolve'];
+  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve'];
 
-  function TasksController ($scope, $state, Authentication, task) {
+  function TasksController ($scope, $stateParams, $state, Authentication, task) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.task = task;
+
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -31,7 +32,8 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.taskForm');
         return false;
       }
-
+      vm.task.parent = { _id: $stateParams.planId };
+      
       // TODO: move create/update logic to service
       if (vm.task._id) {
         vm.task.$update(successCallback, errorCallback);
