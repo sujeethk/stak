@@ -48,7 +48,7 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.planForm');
         return false;
       }
-
+      vm.plan.lastModified = Date.now();
       // TODO: move create/update logic to service
       if (vm.plan._id) {
         vm.plan.$update(successCallback, errorCallback);

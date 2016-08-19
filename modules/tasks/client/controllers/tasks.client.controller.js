@@ -6,9 +6,9 @@
     .module('tasks')
     .controller('TasksController', TasksController);
 
-  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve'];
+  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty'];
 
-  function TasksController ($scope, $stateParams, $state, Authentication, task) {
+  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -33,7 +33,7 @@
         return false;
       }
       vm.task.parent = { _id: $stateParams.planId };
-      
+      vm.task.lastModified = Date.now();
       // TODO: move create/update logic to service
       if (vm.task._id) {
         vm.task.$update(successCallback, errorCallback);
@@ -45,10 +45,21 @@
         $state.go('tasks.view', {
           taskId: res._id
         });
+        toasty.success({
+          title: 'Save successful!',
+          msg: vm.task.name + ' has been saved!',
+          theme: 'bootstrap'
+        });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        toasty.error({
+          title: 'Save error!',
+          msg: vm.error,
+          theme: 'bootstrap',
+          shake: true
+        });
       }
     }
   }

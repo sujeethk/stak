@@ -7,6 +7,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
         'public/lib/angular-material/angular-material.min.css',
+        'public/lib/angular-toasty/dist/angular-toasty.min.css',
         'public/lib/angular-ui-select/dist/select.min.css'
       ],
       js: [
@@ -18,6 +19,7 @@ module.exports = {
         'public/lib/angular-aria/angular-aria.min.js',
         'public/lib/angular-ui-router/release/angular-ui-router.min.js',
         'public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js',
+        'public/lib/angular-toasty/dist/angular-toasty.min.js',
         'public/lib/angular-ui-select/dist/select.min.js',
         'public/lib/angular-sanitize/angular-sanitize.min.js',
         'public/lib/angular-smart-table/dist/smart-table.min.js',

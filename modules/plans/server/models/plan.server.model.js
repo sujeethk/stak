@@ -85,7 +85,10 @@ var PlanSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  lastModified: Date,
+  lastModified: {
+    type: Date,
+    default: Date.now
+  },
   subscribers: [{
     type: String
   }]
