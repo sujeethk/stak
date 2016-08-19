@@ -111,7 +111,7 @@ exports.domainByID = function(req, res, next, id) {
     });
   }
 
-  Domain.findById(id).populate('createdBy manager', 'displayName').exec(function (err, domain) {
+  Domain.findById(id).populate('createdBy manager', 'displayName email').exec(function (err, domain) {
     if (err) {
       return next(err);
     } else if (!domain) {

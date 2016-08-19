@@ -5,113 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Plan = mongoose.model('Plan'),
+  Task = mongoose.model('Task'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Plan
+ * Create a Task
  */
 exports.create = function(req, res) {
-  var plan = new Plan(req.body);
-  plan.createdBy = req.user;
+  var task = new Task(req.body);
+  task.createdBy = req.user;
 
-  plan.save(function(err) {
+  task.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(plan);
+      res.jsonp(task);
     }
   });
 };
 
 /**
- * Show the current Plan
+ * Show the current Task
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var plan = req.plan ? req.plan.toJSON() : {};
+  var task = req.task ? req.task.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  plan.isCurrentUserOwner = req.user && plan.createdBy && plan.createdBy._id.toString() === req.user._id.toString() ? true : false;
+  task.isCurrentUserOwner = req.user && task.createdBy && task.createdBy._id.toString() === req.user._id.toString() ? true : false;
 
-  res.jsonp(plan);
+  res.jsonp(task);
 };
 
 /**
- * Update a Plan
+ * Update a Task
  */
 exports.update = function(req, res) {
-  var plan = req.plan ;
+  var task = req.task ;
 
-  plan = _.extend(plan , req.body);
+  task = _.extend(task , req.body);
 
-  plan.save(function(err) {
+  task.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(plan);
+      res.jsonp(task);
     }
   });
 };
 
 /**
- * Delete an Plan
+ * Delete an Task
  */
 exports.delete = function(req, res) {
-  var plan = req.plan ;
+  var task = req.task ;
 
-  plan.remove(function(err) {
+  task.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(plan);
+      res.jsonp(task);
     }
   });
 };
 
 /**
- * List of Plans
+ * List of Tasks
  */
 exports.list = function(req, res) { 
-  Plan.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, plans) {
+  Task.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, tasks) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(plans);
+      res.jsonp(tasks);
     }
   });
 };
 
 /**
- * Plan middleware
+ * Task middleware
  */
-exports.planByID = function(req, res, next, id) {
+exports.taskByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Plan is invalid'
+      message: 'Task is invalid'
     });
   }
 
-  Plan.findById(id).populate('createdBy author apps domain release', 'displayName displayName name ait name name').exec(function (err, plan) {
+  Task.findById(id).populate('createdBy', 'displayName').exec(function (err, task) {
     if (err) {
       return next(err);
-    } else if (!plan) {
+    } else if (!task) {
       return res.status(404).send({
-        message: 'No Plan with that identifier has been found'
+        message: 'No Task with that identifier has been found'
       });
     }
-    req.plan = plan;
+    req.task = task;
     next();
   });
 };

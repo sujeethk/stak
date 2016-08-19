@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
           <label class="control-label" for="members">Members</label>
-          <ui-select multiple ng-model="vm.team.members" theme="bootstrap" sortable="true" close-on-select="false">
+          <ui-select multiple ng-model="vm.team.members" theme="bootstrap" sortable="true">
             <ui-select-match placeholder="Select or search a person in the list...">{{$item.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.userslist | propsFilter: {displayName: $select.search}">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
@@ -37,7 +37,7 @@
         <div class="form-group" show-errors>
           <label class="control-label" for="manager">Manager</label>
           <ui-select name="manager" id="manager" ng-model="vm.team.manager" theme="bootstrap" required>
-            <ui-select-match placeholder="Choose members first then select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
+            <ui-select-match placeholder="Choose members first then select a person ...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.team.members | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
               <small ng-bind-html="user.email | highlight: $select.search"></small>
@@ -50,7 +50,7 @@
         <div class="form-group" show-errors>
           <label class="control-label" for="primarypoc">Primary POC</label>
           <ui-select name="primarypoc" id="primarypoc" ng-model="vm.team.primarypoc" theme="bootstrap" required>
-            <ui-select-match placeholder="Choose members first then select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
+            <ui-select-match placeholder="Choose members first then select a person ...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.team.members | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
               <small ng-bind-html="user.email | highlight: $select.search"></small>
@@ -63,7 +63,7 @@
         <div class="form-group">
           <label class="control-label" for="secondarypoc">Secondary POC</label>
           <ui-select name="secondarypoc" id="secondarypoc" ng-model="vm.team.secondarypoc" theme="bootstrap">
-            <ui-select-match placeholder="Choose members first then select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
+            <ui-select-match placeholder="Choose members first then select a person ...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.team.members | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
               <small ng-bind-html="user.email | highlight: $select.search"></small>

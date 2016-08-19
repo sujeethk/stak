@@ -1,8 +1,25 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+'use strict';
 
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema;
+
+/**
+ * Task Schema
+ */
 var TaskSchema = new Schema({
-  title: String,
+  name: {
+    type: String,
+    default: '',
+    required: 'Please fill Task name',
+    trim: true
+  },
+  parentplan: {
+    type: Schema.ObjectId,
+    ref: 'Plan'
+  },
   description: String,
   taskid: String,
   type: String, //Milestone, Stack, Task
@@ -19,6 +36,8 @@ var TaskSchema = new Schema({
   }],
   dcs: [String],
   status: String,
+  colorstatus: String,
+  progress: String,
   sql: {
     type: Boolean,
     default: false
@@ -28,19 +47,19 @@ var TaskSchema = new Schema({
     type: Boolean,
     default: false
   },
-  parents: [Schema.ObjectId],
+  child: {
+    type: Schema.ObjectId,
+    ref: 'Plan'
+  },
   externaldependency: {
     plan: {
       type: Schema.ObjectId,
       ref: 'Plan'
     },
-    task: {
-      type: [Schema.ObjectId]
-    }
-  },
-  plan:{
-    colorstatus: String,
-    progress: String
+    task: [{
+      type: Schema.ObjectId,
+      ref: 'Task'
+    }]
   },
   sortOrder: Number,
   duration: Number,
@@ -73,8 +92,15 @@ var TaskSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  lastModified: Date,
-  subscribers: String
+  lastModified: {
+    type: Date,
+    default: Date.now
+  },
+  subscribers: String,
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = TaskSchema;
+mongoose.model('Task', TaskSchema);

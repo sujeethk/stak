@@ -6,9 +6,9 @@
     .module('teams')
     .controller('TeamsController', TeamsController);
 
-  TeamsController.$inject = ['$scope', '$state', 'Authentication', 'teamResolve', 'Admin', 'DomainsService'];
+  TeamsController.$inject = ['$scope', '$state', 'Authentication', 'teamResolve', 'Userslist', 'DomainsService'];
 
-  function TeamsController ($scope, $state, Authentication, team, Admin, DomainsService) {
+  function TeamsController ($scope, $state, Authentication, team, Userslist, DomainsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -19,7 +19,8 @@
     vm.cancelform = cancelform;
     vm.save = save;
 
-    vm.userslist = Admin.query();
+    vm.userslist = Userslist.query();
+    
     vm.domainslist = DomainsService.query();
     
     // Remove existing Team

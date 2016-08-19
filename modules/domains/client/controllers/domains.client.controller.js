@@ -6,21 +6,37 @@
     .module('domains')
     .controller('DomainsController', DomainsController);
 
-  DomainsController.$inject = ['$scope', '$http','$state', 'Authentication', 'domainResolve', 'Admin'];
+  DomainsController.$inject = ['$scope', '$http','$state', 'Authentication', 'domainResolve', 'Userslist'];
 
-  function DomainsController ($scope, $http, $state, Authentication, domain, Admin) {
+  function DomainsController ($scope, $http, $state, Authentication, domain, Userslist) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.domain = domain;
+    //Support new form for ngMaterial by creating empty array
+    vm.domain.manager = (vm.domain.manager === undefined ? [] : vm.domain.manager);
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.cancelform = cancelform;
     vm.save = save;
 
-    vm.userslist = Admin.query();
-    
+    vm.userslist = Userslist.query();
+    vm.querySearch = querySearch;
+
+    function querySearch (criteria) {
+      return vm.userslist.filter(createFilterFor(criteria));
+    }
+
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(contact) {
+        var lowercaseName = angular.lowercase(contact.displayName);
+        return (lowercaseName.indexOf(lowercaseQuery) !== -1);
+      };
+
+    }
+
     // Remove existing Domain
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
