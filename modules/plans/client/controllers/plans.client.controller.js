@@ -13,6 +13,12 @@
 
     vm.authentication = Authentication;
     vm.plan = plan;
+    vm.plan.autolock = new Date(vm.plan.autolock || Date.now());
+    vm.plan.initStart = new Date(vm.plan.initStart || Date.now());
+    vm.plan.initEnd = new Date(vm.plan.initEnd || Date.now());
+    vm.plan.updatedStart = new Date(vm.plan.updatedStart || Date.now());
+    vm.plan.updatedEnd = new Date(vm.plan.updatedEnd || Date.now());
+    
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -20,7 +26,8 @@
     vm.options = {};
     vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
     vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
-    vm.options.status = ['Draft', 'Final', 'Completed', 'Canceled'];
+    vm.options.status = ['Draft', 'Final', 'InProgress', 'Completed', 'Canceled'];
+    vm.dateformat = "MMM dd, yyyy";
 
     vm.userslist = Userslist.query();
     vm.domainslist = DomainsService.query();

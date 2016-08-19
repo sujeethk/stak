@@ -67,8 +67,8 @@ var PlanSchema = new Schema({
     default: true
   },
   autolock: Date,
-  startTime: Date,
-  endTime: Date,
+  initStart: Date,
+  initEnd: Date,
   updatedStart: Date,
   updatedEnd: Date,
   actualStart: Date,

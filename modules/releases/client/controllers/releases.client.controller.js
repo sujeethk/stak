@@ -22,7 +22,7 @@
     vm.cancelform = cancelform;
     vm.save = save;
 
-    $scope.dateformat = 'MMM dd, yyyy';
+    vm.dateformat = 'MMM dd, yyyy';
 
     // Remove existing Release
     function remove() {
