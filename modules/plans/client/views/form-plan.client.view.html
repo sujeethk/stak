@@ -115,7 +115,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="autolock" type="text" class="form-control" id="autolock" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.autolock" is-open="opencal.autolock" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required />
+                <input name="autolock" type="text" class="form-control" id="autolock" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.autolock" is-open="opencal.autolock" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
               </div>
             </div>
             <div class="col-sm-5">
@@ -123,7 +123,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group" ng-show="(vm.plan.status=='InProgress'?false:true)">
+          <div class="form-group" ng-show="(vm.plan.status=='InProgress'?false:true)" show-errors>
             <label class="col-sm-2 control-label" for="initStart">Start Time : </label>
             <div class="col-sm-5">
               <div class="input-group">
@@ -132,15 +132,18 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="initStart" type="text" class="form-control" id="initStart" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initStart" is-open="opencal.initStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required />
+                <input name="initStart" type="text" class="form-control" id="initStart" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initStart" is-open="opencal.initStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
               </div>
             </div>
             <div class="col-sm-5">
               <div uib-timepicker ng-model="vm.plan.initStart" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false">
               </div>
             </div>
+            <div ng-messages="vm.form.planForm.initStart.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan start time is required.</p>
+            </div>
           </div>
-          <div class="form-group" ng-show="(vm.plan.status=='InProgress'?false:true)">
+          <div class="form-group" ng-show="(vm.plan.status=='InProgress'?false:true)" show-errors>
             <label class="col-sm-2 control-label" for="initEnd">End Time : </label>
             <div class="col-sm-5">
               <div class="input-group">
@@ -149,12 +152,15 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="initEnd" type="text" class="form-control" id="initEnd" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initEnd" is-open="opencal.initEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required />
+                <input name="initEnd" type="text" class="form-control" id="initEnd" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initEnd" is-open="opencal.initEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
               </div>
             </div>
             <div class="col-sm-5">
               <div uib-timepicker ng-model="vm.plan.initEnd" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false">
               </div>
+            </div>
+            <div ng-messages="vm.form.planForm.initEnd.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan end time is required.</p>
             </div>
           </div>
           <div class="form-group" ng-show="(vm.plan.status=='InProgress'?true:false)">
@@ -166,7 +172,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="updatedStart" type="text" class="form-control" id="updatedStart" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedStart" is-open="opencal.updatedStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required />
+                <input name="updatedStart" type="text" class="form-control" id="updatedStart" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedStart" is-open="opencal.updatedStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
               </div>
             </div>
             <div class="col-sm-5">
@@ -183,13 +189,22 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="updatedEnd" type="text" class="form-control" id="updatedEnd" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedEnd" is-open="opencal.updatedEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required />
+                <input name="updatedEnd" type="text" class="form-control" id="updatedEnd" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedEnd" is-open="opencal.updatedEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
               </div>
             </div>
             <div class="col-sm-5">
               <div uib-timepicker ng-model="vm.plan.updatedEnd" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false">
               </div>
             </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="subscribers">Subscriber(s)</label>
+            <ui-select multiple tagging ng-model="vm.plan.subscribers" theme="bootstrap">
+              <ui-select-match placeholder="Select subscribers...">{{$item}}</ui-select-match>
+              <ui-select-choices repeat="user in vm.plan.subscribers | filter:$select.search">
+                {{user}}
+              </ui-select-choices>
+            </ui-select>
           </div>
         </uib-tab>
         <uib-tab index="3" heading="Tasks" ng-show="vm.plan._id">

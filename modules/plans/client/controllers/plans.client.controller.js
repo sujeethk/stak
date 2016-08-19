@@ -13,11 +13,12 @@
 
     vm.authentication = Authentication;
     vm.plan = plan;
+    vm.plan.status = (vm.plan.status ? vm.plan.status : 'Draft');
     vm.plan.autolock = new Date(vm.plan.autolock || Date.now());
-    vm.plan.initStart = new Date(vm.plan.initStart || Date.now());
-    vm.plan.initEnd = new Date(vm.plan.initEnd || Date.now());
-    vm.plan.updatedStart = new Date(vm.plan.updatedStart || Date.now());
-    vm.plan.updatedEnd = new Date(vm.plan.updatedEnd || Date.now());
+    vm.plan.initStart = (vm.plan.initStart ? new Date(vm.plan.initStart) : '');
+    vm.plan.initEnd = (vm.plan.initEnd ? new Date(vm.plan.initEnd) : '');
+    vm.plan.updatedStart = (vm.plan.updatedStart ? new Date(vm.plan.updatedStart) : '');
+    vm.plan.updatedEnd = (vm.plan.updatedEnd ? new Date(vm.plan.updatedEnd) : '');
     
     vm.error = null;
     vm.form = {};
@@ -27,7 +28,7 @@
     vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
     vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
     vm.options.status = ['Draft', 'Final', 'InProgress', 'Completed', 'Canceled'];
-    vm.dateformat = "MMM dd, yyyy";
+    vm.dateformat = 'MMM dd, yyyy';
 
     vm.userslist = Userslist.query();
     vm.domainslist = DomainsService.query();

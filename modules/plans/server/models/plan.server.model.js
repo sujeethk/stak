@@ -86,7 +86,9 @@ var PlanSchema = new Schema({
     ref: 'User'
   },
   lastModified: Date,
-  subscribers: String
+  subscribers: [{
+    type: String
+  }]
 });
 
 mongoose.model('Plan', PlanSchema);

@@ -103,7 +103,7 @@ exports.planByID = function(req, res, next, id) {
     });
   }
 
-  Plan.findById(id).populate('createdBy', 'displayName').exec(function (err, plan) {
+  Plan.findById(id).populate('createdBy author apps domain release', 'displayName displayName name ait name name').exec(function (err, plan) {
     if (err) {
       return next(err);
     } else if (!plan) {
