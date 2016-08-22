@@ -13,7 +13,7 @@
       title: 'Teams',
       state: 'teams',
       type: 'dropdown',
-      roles: ['*'],
+      roles: ['user'],
       position: 2
     });
 
