@@ -8,11 +8,11 @@ var tasksPolicy = require('../policies/tasks.server.policy'),
 
 module.exports = function(app) {
   // Tasks Routes
-  app.route('/api/tasks').all(tasksPolicy.isAllowed)
+  app.route('/api/plans/:planId/tasks').all(tasksPolicy.isAllowed)
     .get(tasks.list)
     .post(tasks.create);
 
-  app.route('/api/tasks/:taskId').all(tasksPolicy.isAllowed)
+  app.route('/api/plans/:planId/tasks/:taskId').all(tasksPolicy.isAllowed)
     .get(tasks.read)
     .put(tasks.update)
     .delete(tasks.delete);
