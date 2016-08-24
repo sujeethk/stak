@@ -25,6 +25,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.options = {};
+    vm.dnd = {};
     vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
     vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
     vm.options.status = ['Draft', 'Final', 'InProgress', 'Completed', 'Canceled'];

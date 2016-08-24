@@ -15,33 +15,45 @@
             </div>
           </div>
           <div class="row">
-          <div class="col-md-5 form-group" show-errors>
-            <label class="control-label" for="author">Author</label>
-            <ui-select name="author" id="author" ng-model="vm.plan.author" theme="bootstrap" required>
-              <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
-              <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
-                <div ng-bind-html="user.displayName | highlight: $select.search"></div>
-                <small ng-bind-html="user.email | highlight: $select.search"></small>
-              </ui-select-choices>
-            </ui-select>
-            <div ng-messages="vm.form.planForm.author.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Plan Author is required.</p>
+            <div class="col-md-3 form-group" show-errors>
+              <label class="control-label" for="release">Release</label>
+              <ui-select name="release" id="release" ng-model="vm.plan.release" theme="bootstrap" required>
+                <ui-select-match placeholder="Select or search a release in the list...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="release in vm.releaseslist | filter: $select.search">
+                  <div ng-bind-html="release.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <div ng-messages="vm.form.planForm.release.$error" role="alert">
+                <p class="help-block error-text">Plan Release is required.</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-2">
-          </div>
-          <div class="col-md-5 form-group" show-errors>
-            <label class="control-label" for="domain">Domain</label>
-            <ui-select name="domain" id="domain" ng-model="vm.plan.domain" theme="bootstrap" required>
-              <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
-              <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
-                <div ng-bind-html="domain.name | highlight: $select.search"></div>
-              </ui-select-choices>
-            </ui-select>
-            <div ng-messages="vm.form.planForm.domain.$error" role="alert">
-              <p class="help-block error-text">Plan Domain is required.</p>
+            <div class="col-md-1"></div>
+            <div class="col-md-3 form-group" show-errors>
+              <label class="control-label" for="domain">Domain</label>
+              <ui-select name="domain" id="domain" ng-model="vm.plan.domain" theme="bootstrap" required>
+                <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
+                  <div ng-bind-html="domain.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <div ng-messages="vm.form.planForm.domain.$error" role="alert">
+                <p class="help-block error-text">Plan Domain is required.</p>
+              </div>
             </div>
-          </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3 form-group" show-errors>
+              <label class="control-label" for="author">Author</label>
+              <ui-select name="author" id="author" ng-model="vm.plan.author" theme="bootstrap" required>
+                <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
+                <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
+                  <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+                  <small ng-bind-html="user.email | highlight: $select.search"></small>
+                </ui-select-choices>
+              </ui-select>
+              <div ng-messages="vm.form.planForm.author.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Plan Author is required.</p>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="control-label">Description</label>
@@ -49,11 +61,21 @@
           </div>
         </uib-tab>
         <uib-tab index="1" heading="Status">
-          <div class="form-group" show-errors>
-            <label class="control-label" for="category">Category</label>
-            <select class="form-control" name="category" id="category" ng-model="vm.plan.category" ng-options="o as o for o in vm.options.category" required></select>
-            <div ng-messages="vm.form.planForm.category.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Plan category is required.</p>
+          <div class="row">
+            <div class="col-md-5 form-group" show-errors>
+              <label class="control-label" for="category">Category</label>
+              <select class="form-control" name="category" id="category" ng-model="vm.plan.category" ng-options="o as o for o in vm.options.category" required></select>
+              <div ng-messages="vm.form.planForm.category.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Plan category is required.</p>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+            <div ng-show="vm.plan._id" class="col-md-5 form-group" show-errors>
+              <label class="control-label" for="status">Status</label>
+              <select class="form-control" name="status" id="status" ng-model="vm.plan.status" ng-options="o as o for o in vm.options.status" required></select>
+              <div ng-messages="vm.form.planForm.status.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Plan status is required.</p>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -80,25 +102,6 @@
                 <div ng-bind-html="dc | highlight: $select.search"></div>
               </ui-select-choices>
             </ui-select>
-          </div>
-          <div ng-show="vm.plan._id" class="form-group" show-errors>
-            <label class="control-label" for="status">Status</label>
-            <select class="form-control" name="status" id="status" ng-model="vm.plan.status" ng-options="o as o for o in vm.options.status" required></select>
-            <div ng-messages="vm.form.planForm.status.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Plan status is required.</p>
-            </div>
-          </div>
-          <div class="form-group" show-errors>
-            <label class="control-label" for="release">Release</label>
-            <ui-select name="release" id="release" ng-model="vm.plan.release" theme="bootstrap" required>
-              <ui-select-match placeholder="Select or search a release in the list...">{{$select.selected.name}}</ui-select-match>
-              <ui-select-choices repeat="release in vm.releaseslist | filter: $select.search">
-                <div ng-bind-html="release.name | highlight: $select.search"></div>
-              </ui-select-choices>
-            </ui-select>
-            <div ng-messages="vm.form.planForm.release.$error" role="alert">
-              <p class="help-block error-text">Plan Release is required.</p>
-            </div>
           </div>
           <div class="form-group" ng-show="vm.plan._id">
             <label class="control-label" for="edit">
@@ -208,7 +211,24 @@
           </div>
         </uib-tab>
         <uib-tab index="3" heading="Tasks" ng-show="vm.plan._id">
-
+          <div class="tasksDnd">
+            <ul dnd-list="vm.tasks">
+                <li ng-repeat="item in vm.tasks"
+                    dnd-draggable="item"
+                    dnd-moved="vm.tasks.splice($index, 1)"
+                    dnd-effect-allowed="move"
+                    dnd-selected="vm.dnd.selected = item"
+                    ng-class="{'selected': vm.dnd.selected === item}"
+                    >
+                    <dnd-nodrag>
+                      <div dnd-handle class="handle">:::</div>
+                      <div class="name">
+                          <input type="text" ng-model="item.name" class="form-control input-sm">
+                      </div>
+                    </dnd-nodrag>
+                </li>
+            </ul>
+          </div>
         </uib-tab>
       </uib-tabset>
         <div class="form-group">
