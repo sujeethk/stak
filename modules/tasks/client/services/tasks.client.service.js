@@ -14,7 +14,11 @@
       planId: '@planId'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        params: {
+          taskId: '@_id',
+          planId: '@parent._id'
+        }
       }
     });
   }

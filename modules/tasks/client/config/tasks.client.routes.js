@@ -63,11 +63,11 @@
       });
   }
 
-  getTask.$inject = ['$stateParams', 'TasksService', 'PlansService'];
+  getTask.$inject = ['$stateParams', 'TasksService'];
 
   function getTask($stateParams, TasksService) {
     return TasksService.get({
-      taskId: $stateParams.taskId
+      taskId: $stateParams.taskId, planId: $stateParams.planId
     }).$promise;
   }
 

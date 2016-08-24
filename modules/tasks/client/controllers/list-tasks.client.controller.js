@@ -10,6 +10,6 @@
   function TasksListController(TasksService, $stateParams) {
     var vm = this;
 
-    vm.tasks = TasksService.query({planId: $stateParams.planId});
+    vm.tasks = TasksService.query({ planId: $stateParams.planId });
   }
 })();
