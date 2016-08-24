@@ -22,7 +22,26 @@
     // Remove existing Task
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.task.$remove($state.go('tasks.list'));
+        vm.task.$remove(successCallback, errorCallback);
+      }
+      function successCallback(res) {
+        $state.go('plans.view', {
+          planId: (res.parent._id ? res.parent._id : res.parent)
+        });
+        toasty.success({
+          title: 'Delete successful!',
+          msg: vm.task.name + ' has been deleted!',
+          theme: 'bootstrap'
+        });
+      }
+      function errorCallback(res) {
+        vm.error = res.data.message;
+        toasty.error({
+          title: 'Delete error!',
+          msg: vm.error,
+          theme: 'bootstrap',
+          shake: true
+        });
       }
     }
 
@@ -42,8 +61,8 @@
       }
 
       function successCallback(res) {
-        $state.go('tasks.view', {
-          taskId: res._id
+        $state.go('plans.view', {
+          planId: (res.parent._id ? res.parent._id : res.parent)
         });
         toasty.success({
           title: 'Save successful!',

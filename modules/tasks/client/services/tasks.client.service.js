@@ -19,6 +19,20 @@
           taskId: '@_id',
           planId: '@parent._id'
         }
+      },
+      save: {
+        method: 'POST',
+        params: {
+          taskId: '@_id',
+          planId: '@parent._id'
+        }
+      },
+      remove: {
+        method: 'DELETE',
+        params: {
+          taskId: '@_id',
+          planId: '@parent._id'
+        }
       }
     });
   }
