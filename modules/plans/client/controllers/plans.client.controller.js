@@ -6,9 +6,9 @@
     .module('plans')
     .controller('PlansController', PlansController);
 
-  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService'];
+  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService', 'TasksService'];
 
-  function PlansController ($scope, $state, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService) {
+  function PlansController ($scope, $state, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService, TasksService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -19,7 +19,7 @@
     vm.plan.initEnd = (vm.plan.initEnd ? new Date(vm.plan.initEnd) : '');
     vm.plan.updatedStart = (vm.plan.updatedStart ? new Date(vm.plan.updatedStart) : '');
     vm.plan.updatedEnd = (vm.plan.updatedEnd ? new Date(vm.plan.updatedEnd) : '');
-    
+
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -34,7 +34,7 @@
     vm.domainslist = DomainsService.query();
     vm.appslist = AppsService.query();
     vm.releaseslist = ReleasesService.query();
-
+    vm.tasks = (vm.plan._id ? TasksService.query({ planId: vm.plan._id }) : []);
     // Remove existing Plan
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
@@ -48,7 +48,7 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.planForm');
         return false;
       }
-
+      vm.plan.lastModified = Date.now();
       // TODO: move create/update logic to service
       if (vm.plan._id) {
         vm.plan.$update(successCallback, errorCallback);
@@ -73,7 +73,7 @@
 
       if (angular.isArray(items)) {
         var keys = Object.keys(props);
-          
+
         items.forEach(function(item) {
           var itemMatches = false;
 

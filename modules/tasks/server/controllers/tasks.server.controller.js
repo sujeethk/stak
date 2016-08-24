@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Tasks
  */
-exports.list = function(req, res) { 
-  Task.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, tasks) {
+exports.list = function(req, res) {
+  Task.find({ 'parent': { '_id': req.params.planId } }).sort('-created').populate('createdBy parent', 'displayName name').exec(function(err, tasks) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,14 +96,13 @@ exports.list = function(req, res) {
  * Task middleware
  */
 exports.taskByID = function(req, res, next, id) {
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'Task is invalid'
     });
   }
 
-  Task.findById(id).populate('createdBy', 'displayName').exec(function (err, task) {
+  Task.findById(id).populate('createdBy parent', 'displayName name').exec(function (err, task) {
     if (err) {
       return next(err);
     } else if (!task) {

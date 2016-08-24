@@ -199,7 +199,7 @@
           </div>
           <div class="form-group">
             <label class="control-label" for="subscribers">Subscriber(s)</label>
-            <ui-select multiple tagging ng-model="vm.plan.subscribers" theme="bootstrap">
+            <ui-select multiple tagging tagging-label="" ng-model="vm.plan.subscribers" theme="bootstrap">
               <ui-select-match placeholder="Select subscribers...">{{$item}}</ui-select-match>
               <ui-select-choices repeat="user in vm.plan.subscribers | filter:$select.search">
                 {{user}}

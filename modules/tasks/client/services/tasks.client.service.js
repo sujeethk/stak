@@ -9,11 +9,30 @@
   TasksService.$inject = ['$resource'];
 
   function TasksService($resource) {
-    return $resource('api/tasks/:taskId', {
-      taskId: '@_id'
+    return $resource('api/plans/:planId/tasks/:taskId', {
+      taskId: '@_id',
+      planId: '@planId'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        params: {
+          taskId: '@_id',
+          planId: '@parent._id'
+        }
+      },
+      save: {
+        method: 'POST',
+        params: {
+          taskId: '@_id',
+          planId: '@parent._id'
+        }
+      },
+      remove: {
+        method: 'DELETE',
+        params: {
+          taskId: '@_id',
+          planId: '@parent._id'
+        }
       }
     });
   }

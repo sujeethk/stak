@@ -9,7 +9,7 @@
 
   function menuConfig(Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', {
+    /*Menus.addMenuItem('topbar', {
       title: 'Tasks',
       state: 'tasks',
       type: 'dropdown',
@@ -27,6 +27,6 @@
       title: 'Create Task',
       state: 'tasks.create',
       roles: ['user']
-    });
+    });*/
   }
 })();

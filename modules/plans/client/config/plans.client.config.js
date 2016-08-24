@@ -13,7 +13,7 @@
       title: 'Plans',
       state: 'plans',
       type: 'dropdown',
-      roles: ['*'],
+      roles: ['user'],
       position: 1
     });
 

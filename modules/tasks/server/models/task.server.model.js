@@ -16,7 +16,7 @@ var TaskSchema = new Schema({
     required: 'Please fill Task name',
     trim: true
   },
-  parentplan: {
+  parent: {
     type: Schema.ObjectId,
     ref: 'Plan'
   },

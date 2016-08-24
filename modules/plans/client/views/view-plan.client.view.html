@@ -1,6 +1,7 @@
 <section>
   <div class="page-header">
     <h1 data-ng-bind="vm.plan.name"></h1>
+    <a ui-sref="tasks.list({planId: vm.plan._id})">View Tasks</a>
   </div>
   <div class="pull-right"
        data-ng-show="vm.plan.isCurrentUserOwner">
@@ -22,48 +23,31 @@
       <span data-ng-if="!vm.plan.createdBy">Deleted User</span>
     </em>
   </small>
-  <p class="lead" data-ng-bind="vm.plan.content"></p>
-<div class="nestedDemo">  
-  <script type="text/ng-template" id="list.html">
-    <ul dnd-list="list">
-        <li ng-repeat="item in list"
-            dnd-draggable="item"
-            dnd-effect-allowed="move"
-            dnd-moved="list.splice($index, 1)"
-            dnd-selected="models.selected = item"
-            ng-class="{selected: models.selected === item}"
-            ng-include="item.type + '.html'">
-        </li>
-    </ul>
-</script>
-
-<!-- This template is responsible for rendering a container element. It uses
-     the above list template to render each container column -->
-
-<script type="text/ng-template" id="container.html">
-    <div class="container-element box box-blue">
-        <h3>Container {{item.id}}</h3>
-        <div class="column" ng-repeat="list in item.columns" ng-include="'list.html'"></div>
-        <div class="clearfix"></div>
+  <p class="lead" data-ng-bind="vm.plan.status"></p>
+  <section>
+    <div class="page-header">
+      <h1>Tasks
+        <a class="btn btn-info pull-right" data-ui-sref="tasks.create({ planId: vm.plan._id })">
+          <i class="glyphicon glyphicon-plus"></i> <b>New Task</b>
+        </a>
+      </h1>
     </div>
-</script>
-
-<!-- Template for a normal list item -->
-<script type="text/ng-template" id="item.html">
-    <div class="item">Item {{item.id}}</div>
-</script>
-
-<!-- Main area with dropzones and source code -->
-<div class="col-md-10">
-    <div class="row ">
-        <div ng-repeat="(zone, list) in models.dropzones" class=" col-md-6">
-            <div class=" dropzone box box-yellow">
-                <!-- The dropzone also uses the list template -->
-                <h3>Dropzone {{zone}}</h3>
-                <div ng-include="'list.html'"></div>
-            </div>
-        </div>
+    <div class="list-group">
+      <a data-ng-repeat="task in vm.tasks"
+         data-ui-sref="tasks.view({ taskId: task._id, planId: task.parent._id })"
+         class="list-group-item">
+        <small class="list-group-item-text">
+          Posted on
+          <span data-ng-bind="task.created | date:'mediumDate'"></span>
+          by
+          <span data-ng-if="task.createdBy" data-ng-bind="task.createdBy.displayName"></span>
+          <span data-ng-if="!task.createdBy">Deleted User</span>
+        </small>
+        <h4 class="list-group-item-heading" data-ng-bind="task.name"></h4>
+      </a>
     </div>
-</div>
-</div>
+    <div class="alert alert-warning text-center" data-ng-if="vm.tasks.$resolved && !vm.tasks.length">
+      No Tasks yet, why don't you <a data-ui-sref="tasks.create">create one</a>?
+    </div>
+  </section>
 </section>

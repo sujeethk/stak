@@ -4,7 +4,7 @@
   </div>
   <div class="list-group">
     <a data-ng-repeat="task in vm.tasks"
-       data-ui-sref="tasks.view({ taskId: task._id })"
+       data-ui-sref="tasks.view({ taskId: task._id, planId: task.parent._id })"
        class="list-group-item">
       <small class="list-group-item-text">
         Posted on
