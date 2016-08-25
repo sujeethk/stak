@@ -13,6 +13,26 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="control-label">Description</label>
+          <textarea rows="3" ng-model="vm.task.description" class="form-control" placeholder="Description"></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md-5 form-group" show-errors>
+            <label class="control-label" for="type">Type</label>
+            <select class="form-control" name="type" id="type" ng-model="vm.task.type" ng-options="o as o for o in vm.options.type" required></select>
+            <div ng-messages="vm.form.taskForm.type.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Task type is required.</p>
+            </div>
+          </div>
+          <div class="col-md-5 form-group" show-errors>
+            <label class="control-label" for="category">Category</label>
+            <select class="form-control" name="category" id="category" ng-model="vm.task.category" ng-options="o as o for o in vm.options.category" required></select>
+            <div ng-messages="vm.form.taskForm.category.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Task category is required.</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.task._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">

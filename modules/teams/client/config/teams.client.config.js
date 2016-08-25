@@ -22,12 +22,5 @@
       title: 'List Teams',
       state: 'teams.list'
     });
-
-    // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'teams', {
-      title: 'Create Team',
-      state: 'teams.create',
-      roles: ['user']
-    });
   }
 })();

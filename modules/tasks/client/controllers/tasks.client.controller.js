@@ -13,7 +13,10 @@
 
     vm.authentication = Authentication;
     vm.task = task;
-
+    var lastbestknown = task.toJSON();
+    vm.options = {};
+    vm.options.type = ['Milestone', 'Stack', 'Task'];
+    vm.options.category = ['Deploy', 'Routing', 'Certiifcation', 'Infrastructure'];
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -53,6 +56,7 @@
       }
       vm.task.parent = { _id: $stateParams.planId };
       vm.task.lastModified = Date.now();
+      vm.task.lastbestknown = lastbestknown;
       // TODO: move create/update logic to service
       if (vm.task._id) {
         vm.task.$update(successCallback, errorCallback);

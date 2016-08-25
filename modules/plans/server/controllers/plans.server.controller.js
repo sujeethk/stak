@@ -36,7 +36,7 @@ exports.read = function(req, res) {
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  plan.isCurrentUserOwner = req.user && plan.createdBy && plan.createdBy._id.toString() === req.user._id.toString() ? true : false;
+  plan.isCurrentUserOwner = req.user && plan.createdBy && (plan.createdBy._id.toString() === req.user._id.toString() || plan.author._id.toString() === req.user._id.toString());
 
   res.jsonp(plan);
 };
@@ -80,7 +80,7 @@ exports.delete = function(req, res) {
 /**
  * List of Plans
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
   Plan.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, plans) {
     if (err) {
       return res.status(400).send({

@@ -1,7 +1,6 @@
 <section>
   <div class="page-header">
     <h1 data-ng-bind="vm.plan.name"></h1>
-    <a ui-sref="tasks.list({planId: vm.plan._id})">View Tasks</a>
   </div>
   <div class="pull-right"
        data-ng-show="vm.plan.isCurrentUserOwner">
@@ -26,11 +25,11 @@
   <p class="lead" data-ng-bind="vm.plan.status"></p>
   <section>
     <div class="page-header">
-      <h1>Tasks
+      <h3>Tasks
         <a class="btn btn-info pull-right" data-ui-sref="tasks.create({ planId: vm.plan._id })">
-          <i class="glyphicon glyphicon-plus"></i> <b>New Task</b>
+          <i class="glyphicon glyphicon-plus"></i> <b>Add Task</b>
         </a>
-      </h1>
+      </h3>
     </div>
     <div class="list-group">
       <a data-ng-repeat="task in vm.tasks"
