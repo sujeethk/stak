@@ -20,7 +20,10 @@
       <h4 class="list-group-item-heading" data-ng-bind="plan.name"></h4>
     </a>
   </div>
-  <div class="alert alert-warning text-center" data-ng-if="vm.plans.$resolved && !vm.plans.length">
+  <div class="alert alert-warning text-center" data-ng-if="vm.plans.$resolved && !vm.plans.length && !vm.failed" >
     No Plans yet, why don't you <a data-ui-sref="plans.create">create one</a>?
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.failed">
+    Error connecting to server
   </div>
 </section>

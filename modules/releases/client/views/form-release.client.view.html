@@ -13,15 +13,15 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.release.name" id="name" class="form-control" placeholder="Name" required>
+          <input name="name" type="text" ng-model="vm.release.name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.releaseForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Release name is required.</p>
           </div>
         </div>
         <div class="form-group" ng-show="vm.release._id">
           <label class="control-label" for="status">Status</label><br/>
-          <input type="radio" name="status" ng-model="vm.release.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="status" ng-model="vm.release.status" id="status"  value="inactive"> Inactive
+          <input type="radio" name="status" ng-model="vm.release.status" value="active"> Active  &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" ng-model="vm.release.status" value="inactive"> Inactive
         </div>
         <div class="form-group" show-errors>
         <label class="control-label" for="start">Start Date</label>
@@ -31,7 +31,7 @@
                     <i class="glyphicon glyphicon-calendar"></i>
                 </a>
             </span>
-            <input name="start" type="text" class="form-control" id="start" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.release.start" is-open="opencal.start" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
+            <input name="start" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.release.start" is-open="opencal.start" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
           </div>
           <div ng-messages="vm.form.releaseForm.start.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Release start date is required.</p>
@@ -47,7 +47,7 @@
                     <i class="glyphicon glyphicon-calendar"></i>
                 </a>
             </span>
-            <input name="end" type="text" class="form-control" id="end" datepicker-options="{showWeeks:false,startingDay:1}" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.release.end" is-open="opencal.end" close-text="Close" required/>
+            <input name="end" type="text" class="form-control" datepicker-options="{showWeeks:false,startingDay:1}" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.release.end" is-open="opencal.end" close-text="Close" required/>
           </div>
           <div ng-messages="vm.form.releaseForm.end.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Release End date is required/incorrect format.</p>

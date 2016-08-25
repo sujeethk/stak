@@ -66,10 +66,10 @@ var TaskSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   }],
-  team: [{
+  team: {
     type: Schema.ObjectId,
     ref: 'Team'
-  }],
+  },
   contact: String,
   notes: String,
   lastPaged: Date,

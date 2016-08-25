@@ -7,7 +7,7 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.task.name" id="name" class="form-control" placeholder="Name" >
+          <input name="name" type="text" ng-model="vm.task.name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.taskForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Task name is required.</p>
           </div>
@@ -17,20 +17,52 @@
           <textarea rows="3" ng-model="vm.task.description" class="form-control" placeholder="Description"></textarea>
         </div>
         <div class="row">
-          <div class="col-md-5 form-group" show-errors>
+          <div class="col-md-3 form-group" show-errors>
             <label class="control-label" for="type">Type</label>
-            <select class="form-control" name="type" id="type" ng-model="vm.task.type" ng-options="o as o for o in vm.options.type" required></select>
+            <select class="form-control" name="type" ng-model="vm.task.type" ng-options="o as o for o in vm.options.type" required></select>
             <div ng-messages="vm.form.taskForm.type.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Task type is required.</p>
             </div>
           </div>
-          <div class="col-md-5 form-group" show-errors>
+          <div class="col-md-1"></div>
+          <div class="col-md-3 form-group" show-errors>
             <label class="control-label" for="category">Category</label>
-            <select class="form-control" name="category" id="category" ng-model="vm.task.category" ng-options="o as o for o in vm.options.category" required></select>
+            <select class="form-control" name="category" ng-model="vm.task.category" ng-options="o as o for o in vm.options.category" required></select>
             <div ng-messages="vm.form.taskForm.category.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Task category is required.</p>
             </div>
           </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-3 form-group" show-errors>
+            <label class="control-label" for="duration">Duration</label>
+            <input name="duration" type="number" ng-model="vm.task.duration" class="form-control" placeholder="in Minutes" min="0" max="999" step="5" required>
+            <div ng-messages="vm.form.taskForm.duration.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Task duration is required.</p>
+              <p class="help-block error-text" ng-message="max">Task duration should be less than 999.</p>
+              <p class="help-block error-text" ng-message="min">Task duration should not be negative.</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="members">POC</label>
+          <ui-select multiple ng-model="vm.task.poc" theme="bootstrap" sortable="true">
+            <ui-select-match placeholder="Select or search a person in the list...">{{$item.displayName}}</ui-select-match>
+            <ui-select-choices repeat="user in vm.userslist | propsFilter: {displayName: $select.search}">
+              <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+              <small>
+                email: {{user.email}}
+              </small>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="team">Team</label>
+          <ui-select name="team" ng-model="vm.task.team" theme="bootstrap">
+            <ui-select-match placeholder="Or select a team">{{$select.selected.displayName}}</ui-select-match>
+            <ui-select-choices repeat="team in vm.teamslist | filter: $select.search">
+              <div ng-bind-html="team.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.task._id ? 'Update' : 'Create'}}</button>

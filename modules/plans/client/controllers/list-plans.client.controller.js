@@ -10,6 +10,10 @@
   function PlansListController(PlansService) {
     var vm = this;
 
-    vm.plans = PlansService.query();
+    vm.plans = PlansService.query(function(res) {
+
+    }, function(error) {
+      vm.failed = true;
+    });
   }
 })();

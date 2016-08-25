@@ -6,9 +6,9 @@
     .module('tasks')
     .controller('TasksController', TasksController);
 
-  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty'];
+  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty', 'Userslist', 'TeamsService'];
 
-  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty) {
+  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty, Userslist, TeamsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -21,7 +21,9 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.userslist = Userslist.query();
 
+    vm.teamslist = TeamsService.query();
     // Remove existing Task
     function remove() {
       if (confirm('Are you sure you want to delete?')) {

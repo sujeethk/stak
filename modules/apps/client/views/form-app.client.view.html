@@ -13,14 +13,14 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.app.name" id="name" class="form-control" placeholder="Name" required>
+          <input name="name" type="text" ng-model="vm.app.name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.appForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">App name is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="ait">AIT</label>
-          <input name="ait" type="number" max="99999" ng-model="vm.app.ait" id="ait" class="form-control" placeholder="AIT #" required>
+          <input name="ait" type="number" max="99999" ng-model="vm.app.ait" class="form-control" placeholder="AIT #" required>
           <div ng-messages="vm.form.appForm.ait.$error" role="alert">
             <p class="help-block error-text" ng-message="required">App AIT is required.</p>
             <p class="help-block error-text" ng-message="max">App AIT should be less than 6 digits.</p>
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="manager">Manager</label>
-          <ui-select name="manager" id="manager" ng-model="vm.app.manager" theme="bootstrap" required>
+          <ui-select name="manager" ng-model="vm.app.manager" theme="bootstrap" required>
             <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="domain">Domain</label>
-          <ui-select name="domain" id="domain" ng-model="vm.app.domain" theme="bootstrap" required>
+          <ui-select name="domain" ng-model="vm.app.domain" theme="bootstrap" required>
             <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
               <div ng-bind-html="domain.name | highlight: $select.search"></div>
@@ -53,8 +53,8 @@
         </div>
         <div class="form-group" ng-show="vm.app._id">
           <label class="control-label" for="status">Status</label><br/>
-          <input type="radio" name="status" ng-model="vm.app.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="status" ng-model="vm.app.status" id="status"  value="retired"> Retired
+          <input type="radio" name="status" ng-model="vm.app.status" value="active"> Active  &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" ng-model="vm.app.status" value="retired"> Retired
         </div>
         <div class="form-group">
           <button type="button" ng-click="vm.save(vm.form.appForm.$valid)" class="btn btn-primary">{{vm.app._id ? 'Update' : 'Create'}}</button>

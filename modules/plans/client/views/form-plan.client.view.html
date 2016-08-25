@@ -9,7 +9,7 @@
         <uib-tab index="0" heading="Overview">
           <div class="form-group" show-errors>
             <label class="control-label" for="name">Name</label>
-            <input name="name" type="text" ng-model="vm.plan.name" id="name" class="form-control" placeholder="Name" required>
+            <input name="name" type="text" ng-model="vm.plan.name" class="form-control" placeholder="Name" required>
             <div ng-messages="vm.form.planForm.name.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Plan name is required.</p>
             </div>
@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-md-3 form-group" show-errors>
               <label class="control-label" for="release">Release</label>
-              <ui-select name="release" id="release" ng-model="vm.plan.release" theme="bootstrap" required>
+              <ui-select name="release" ng-model="vm.plan.release" theme="bootstrap" required>
                 <ui-select-match placeholder="Select or search a release in the list...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="release in vm.releaseslist | filter: $select.search">
                   <div ng-bind-html="release.name | highlight: $select.search"></div>
@@ -30,7 +30,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-3 form-group" show-errors>
               <label class="control-label" for="domain">Domain</label>
-              <ui-select name="domain" id="domain" ng-model="vm.plan.domain" theme="bootstrap" required>
+              <ui-select name="domain" ng-model="vm.plan.domain" theme="bootstrap" required>
                 <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
                   <div ng-bind-html="domain.name | highlight: $select.search"></div>
@@ -43,7 +43,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-3 form-group" show-errors>
               <label class="control-label" for="author">Author</label>
-              <ui-select name="author" id="author" ng-model="vm.plan.author" theme="bootstrap" required>
+              <ui-select name="author" ng-model="vm.plan.author" theme="bootstrap" required>
                 <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.displayName}}</ui-select-match>
                 <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
                   <div ng-bind-html="user.displayName | highlight: $select.search"></div>
@@ -64,7 +64,7 @@
           <div class="row">
             <div class="col-md-5 form-group" show-errors>
               <label class="control-label" for="category">Category</label>
-              <select class="form-control" name="category" id="category" ng-model="vm.plan.category" ng-options="o as o for o in vm.options.category" required></select>
+              <select class="form-control" name="category" ng-model="vm.plan.category" ng-options="o as o for o in vm.options.category" required></select>
               <div ng-messages="vm.form.planForm.category.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">Plan category is required.</p>
               </div>
@@ -72,7 +72,7 @@
             <div class="col-md-2"></div>
             <div ng-show="vm.plan._id" class="col-md-5 form-group" show-errors>
               <label class="control-label" for="status">Status</label>
-              <select class="form-control" name="status" id="status" ng-model="vm.plan.status" ng-options="o as o for o in vm.options.status" required></select>
+              <select class="form-control" name="status" ng-model="vm.plan.status" ng-options="o as o for o in vm.options.status" required></select>
               <div ng-messages="vm.form.planForm.status.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">Plan status is required.</p>
               </div>
@@ -105,7 +105,7 @@
           </div>
           <div class="form-group" ng-show="vm.plan._id">
             <label class="control-label" for="edit">
-            <input type="checkbox" name="edit" ng-model="vm.plan.edit" id="edit"> Allow edit</label><br/>
+            <input type="checkbox" name="edit" ng-model="vm.plan.edit"> Allow edit</label><br/>
           </div>
         </uib-tab>
         <uib-tab index="2" heading="Time">
@@ -118,7 +118,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="autolock" type="text" class="form-control" id="autolock" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.autolock" is-open="opencal.autolock" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
+                <input name="autolock" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.autolock" is-open="opencal.autolock" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
               </div>
             </div>
             <div class="col-sm-5">
@@ -135,7 +135,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="initStart" type="text" class="form-control" id="initStart" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initStart" is-open="opencal.initStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
+                <input name="initStart" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initStart" is-open="opencal.initStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
               </div>
             </div>
             <div class="col-sm-5">
@@ -155,7 +155,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="initEnd" type="text" class="form-control" id="initEnd" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initEnd" is-open="opencal.initEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
+                <input name="initEnd" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initEnd" is-open="opencal.initEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
               </div>
             </div>
             <div class="col-sm-5">
@@ -175,7 +175,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="updatedStart" type="text" class="form-control" id="updatedStart" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedStart" is-open="opencal.updatedStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
+                <input name="updatedStart" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedStart" is-open="opencal.updatedStart" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
               </div>
             </div>
             <div class="col-sm-5">
@@ -192,7 +192,7 @@
                         <i class="glyphicon glyphicon-calendar"></i>
                     </a>
                 </span>
-                <input name="updatedEnd" type="text" class="form-control" id="updatedEnd" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedEnd" is-open="opencal.updatedEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
+                <input name="updatedEnd" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.updatedEnd" is-open="opencal.updatedEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" />
               </div>
             </div>
             <div class="col-sm-5">
