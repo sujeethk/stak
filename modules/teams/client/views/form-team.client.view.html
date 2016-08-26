@@ -26,7 +26,7 @@
           <label class="control-label" for="members">Members</label>
           <ui-select multiple ng-model="vm.team.members" theme="bootstrap" sortable="true">
             <ui-select-match placeholder="Select or search a person in the list...">{{$item.displayName}}</ui-select-match>
-            <ui-select-choices repeat="user in vm.userslist | propsFilter: {displayName: $select.search}">
+            <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
               <small>
                 email: {{user.email}}

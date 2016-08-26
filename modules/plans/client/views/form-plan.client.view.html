@@ -86,7 +86,7 @@
             <label class="control-label" for="apps">Applications</label>
             <ui-select multiple ng-model="vm.plan.apps" theme="bootstrap">
               <ui-select-match placeholder="Select applications...">{{$item.name}} &lt;{{$item.ait}}&gt;</ui-select-match>
-              <ui-select-choices repeat="application in vm.appslist | propsFilter: {name: $select.search, ait: $select.search}">
+              <ui-select-choices repeat="application in vm.appslist | filter: $select.search">
                 <div ng-bind-html="application.name | highlight: $select.search"></div>
                 <small>
                   ait: <span ng-bind-html="''+application.ait | highlight: $select.search"></span>
