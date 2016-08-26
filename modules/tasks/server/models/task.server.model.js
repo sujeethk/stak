@@ -90,7 +90,7 @@ var TaskSchema = new Schema({
     default: Date.now
   },
   subscribers: [{
-      type: String
+    type: String
   }],
   created: {
     type: Date,

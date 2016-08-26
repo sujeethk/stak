@@ -28,7 +28,7 @@
     vm.teamslist = TeamsService.query();
     vm.appslist = AppsService.query();
     if(vm.task._id && vm.task.child){
-      vm.task.child.release = ReleasesService.get({ 'releaseId': vm.task.child.release});
+      vm.task.child.release = ReleasesService.get({ 'releaseId': vm.task.child.release });
     }
     // Remove existing Task
     function remove() {
