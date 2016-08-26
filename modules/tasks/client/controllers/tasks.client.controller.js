@@ -52,7 +52,7 @@
     }
 
     function cancelform() {
-      $state.go('plans.view', {'planId': $stateParams.planId});
+      $state.go('plans.view', { 'planId': $stateParams.planId });
     }
 
     // Save Task
