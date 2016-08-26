@@ -3,7 +3,7 @@
     <h1>{{vm.plan._id ? 'Edit Plan' : 'New Plan'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.planForm" class="form-horizontal" ng-submit="vm.save(vm.form.planForm.$valid)" novalidate>
+    <form name="vm.form.planForm" class="form-horizontal" novalidate>
       <fieldset>
       <uib-tabset active="activeForm">
         <uib-tab index="0" heading="Overview">
@@ -232,7 +232,8 @@
         </uib-tab>
       </uib-tabset>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.plan._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ng-click="vm.save(vm.form.planForm.$valid)" class="btn btn-primary">{{vm.plan._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ng-click="vm.cancelform()" class="btn btn-default">Cancel</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

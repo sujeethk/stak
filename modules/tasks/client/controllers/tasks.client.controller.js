@@ -20,6 +20,7 @@
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
+    vm.cancelform = cancelform;
     vm.save = save;
     vm.userslist = Userslist.query();
 
@@ -48,6 +49,10 @@
           shake: true
         });
       }
+    }
+
+    function cancelform() {
+      $state.go('plans.view', {'planId': $stateParams.planId});
     }
 
     // Save Task

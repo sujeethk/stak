@@ -26,6 +26,7 @@
     vm.save = save;
     vm.options = {};
     vm.dnd = {};
+    vm.cancelform = cancelform;
     vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
     vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
     vm.options.status = ['Draft', 'Final', 'InProgress', 'Completed', 'Canceled'];
@@ -41,6 +42,10 @@
       if (confirm('Are you sure you want to delete?')) {
         vm.plan.$remove($state.go('plans.list'));
       }
+    }
+
+    function cancelform() {
+      $state.go('plans.list');
     }
 
     // Save Plan
