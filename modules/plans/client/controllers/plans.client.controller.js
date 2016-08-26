@@ -6,9 +6,9 @@
     .module('plans')
     .controller('PlansController', PlansController);
 
-  PlansController.$inject = ['$scope', '$state', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService', 'TasksService'];
+  PlansController.$inject = ['$scope', '$state', '$stateParams', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService', 'TasksService'];
 
-  function PlansController ($scope, $state, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService, TasksService) {
+  function PlansController ($scope, $state, $stateParams, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService, TasksService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -47,6 +47,12 @@
     function cancelform() {
       $state.go('plans.list');
     }
+
+    vm.dragend = function() {
+      for(var i = 0; i < vm.tasks.length; i++){
+        vm.tasks[i].sortOrder = i;
+      }
+    };
 
     // Save Plan
     function save(isValid) {

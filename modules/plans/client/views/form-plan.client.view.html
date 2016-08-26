@@ -218,6 +218,7 @@
                     dnd-moved="vm.tasks.splice($index, 1)"
                     dnd-effect-allowed="move"
                     dnd-selected="vm.dnd.selected = item"
+                    dnd-dragend="vm.dragend()"
                     ng-class="{'selected': vm.dnd.selected === item}"
                     >
                     <dnd-nodrag>
