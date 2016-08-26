@@ -79,8 +79,8 @@ exports.delete = function(req, res) {
 /**
  * List of Teams
  */
-exports.list = function(req, res) { 
-  Team.find().sort('status name').populate('manager createdBy primarypoc domain', 'displayName displayName displayName name').exec(function(err, teams) {
+exports.list = function(req, res) {
+  Team.find().sort('status name').populate('manager createdBy primarypoc domain', 'displayName name').exec(function(err, teams) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -102,7 +102,7 @@ exports.teamByID = function(req, res, next, id) {
     });
   }
 
-  Team.findById(id).populate('manager createdBy primarypoc secondarypoc members domain', 'displayName displayName displayName displayName displayName email name').exec(function (err, team) {
+  Team.findById(id).populate('manager createdBy primarypoc secondarypoc members domain', 'displayName email name').exec(function (err, team) {
     if (err) {
       return next(err);
     } else if (!team) {

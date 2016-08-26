@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Apps
  */
-exports.list = function(req, res) { 
-  App.find().sort('status ait name').populate('createdBy manager domain', 'displayName displayName name').exec(function(err, apps) {
+exports.list = function(req, res) {
+  App.find().sort('status ait name').populate('createdBy manager domain', 'displayName name').exec(function(err, apps) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.appByID = function(req, res, next, id) {
     });
   }
 
-  App.findById(id).populate('createdBy manager domain', 'displayName displayName name').exec(function (err, app) {
+  App.findById(id).populate('createdBy manager domain', 'displayName name').exec(function (err, app) {
     if (err) {
       return next(err);
     } else if (!app) {

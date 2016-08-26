@@ -6,9 +6,9 @@
     .module('tasks')
     .controller('TasksController', TasksController);
 
-  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty', 'Userslist', 'TeamsService', 'PlansService'];
+  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty', 'Userslist', 'TeamsService', 'PlansService', 'ReleasesService', 'AppsService'];
 
-  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty, Userslist, TeamsService, PlansService) {
+  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty, Userslist, TeamsService, PlansService, ReleasesService, AppsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,7 @@
     vm.options = {};
     vm.options.type = ['Milestone', 'Stack', 'Task'];
     vm.options.category = ['Deploy', 'Routing', 'Certiifcation', 'Infrastructure'];
+    vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -25,6 +26,10 @@
     vm.userslist = Userslist.query();
     vm.planslist = PlansService.query();
     vm.teamslist = TeamsService.query();
+    vm.appslist = AppsService.query();
+    if(vm.task._id && vm.task.child){
+      vm.task.child.release = ReleasesService.get({ 'releaseId': vm.task.child.release});
+    }
     // Remove existing Task
     function remove() {
       if (confirm('Are you sure you want to delete?')) {

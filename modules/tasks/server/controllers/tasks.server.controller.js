@@ -102,7 +102,7 @@ exports.taskByID = function(req, res, next, id) {
     });
   }
 
-  Task.findById(id).select('-lastbestknown').populate('createdBy parent', 'displayName name').exec(function (err, task) {
+  Task.findById(id).select('-lastbestknown').populate('createdBy parent poc team child sql.apps', 'displayName name release ait').exec(function (err, task) {
     if (err) {
       return next(err);
     } else if (!task) {
