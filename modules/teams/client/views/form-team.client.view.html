@@ -13,14 +13,14 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Team Name</label>
-          <input name="name" type="text" ng-model="vm.team.name" id="name" class="form-control" placeholder="Name" required>
+          <input name="name" type="text" ng-model="vm.team.name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.teamForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Team name is required.</p>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label" for="name">Team DG</label>
-          <input name="dg" type="text" ng-model="vm.team.dg" id="dg" class="form-control" placeholder="Team Distribution Group">
+          <input name="dg" type="text" ng-model="vm.team.dg" class="form-control" placeholder="Team Distribution Group">
         </div>
         <div class="form-group">
           <label class="control-label" for="members">Members</label>
@@ -36,7 +36,7 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="manager">Manager</label>
-          <ui-select name="manager" id="manager" ng-model="vm.team.manager" theme="bootstrap" required>
+          <ui-select name="manager" ng-model="vm.team.manager" theme="bootstrap" required>
             <ui-select-match placeholder="Choose members first then select a person ...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.team.members | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
@@ -49,7 +49,7 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="primarypoc">Primary POC</label>
-          <ui-select name="primarypoc" id="primarypoc" ng-model="vm.team.primarypoc" theme="bootstrap" required>
+          <ui-select name="primarypoc" ng-model="vm.team.primarypoc" theme="bootstrap" required>
             <ui-select-match placeholder="Choose members first then select a person ...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.team.members | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
@@ -62,7 +62,7 @@
         </div>
         <div class="form-group">
           <label class="control-label" for="secondarypoc">Secondary POC</label>
-          <ui-select name="secondarypoc" id="secondarypoc" ng-model="vm.team.secondarypoc" theme="bootstrap">
+          <ui-select name="secondarypoc" ng-model="vm.team.secondarypoc" theme="bootstrap">
             <ui-select-match placeholder="Choose members first then select a person ...">{{$select.selected.displayName}}</ui-select-match>
             <ui-select-choices repeat="user in vm.team.members | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
@@ -72,7 +72,7 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="domain">Domain</label>
-          <ui-select name="domain" id="domain" ng-model="vm.team.domain" theme="bootstrap" required>
+          <ui-select name="domain" ng-model="vm.team.domain" theme="bootstrap" required>
             <ui-select-match placeholder="Select or search a domain in the list...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="domain in vm.domainslist | filter: $select.search">
               <div ng-bind-html="domain.name | highlight: $select.search"></div>
@@ -84,8 +84,8 @@
         </div>
         <div class="form-group" ng-show="vm.team._id">
           <label class="control-label" for="status">Status</label><br/>
-          <input type="radio" name="status" ng-model="vm.team.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="status" ng-model="vm.team.status" id="status"  value="inactive"> Inactive
+          <input type="radio" name="status" ng-model="vm.team.status" value="active"> Active  &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" ng-model="vm.team.status" value="inactive"> Inactive
         </div>
         <div class="form-group">
           <button type="button" ng-click="vm.save(vm.form.teamForm.$valid)" class="btn btn-primary">{{vm.team._id ? 'Update' : 'Create'}}</button>

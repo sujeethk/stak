@@ -6,19 +6,24 @@
     .module('tasks')
     .controller('TasksController', TasksController);
 
-  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty'];
+  TasksController.$inject = ['$scope', '$stateParams', '$state', 'Authentication', 'taskResolve', 'toasty', 'Userslist', 'TeamsService'];
 
-  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty) {
+  function TasksController ($scope, $stateParams, $state, Authentication, task, toasty, Userslist, TeamsService) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.task = task;
-
+    var lastbestknown = task.toJSON();
+    vm.options = {};
+    vm.options.type = ['Milestone', 'Stack', 'Task'];
+    vm.options.category = ['Deploy', 'Routing', 'Certiifcation', 'Infrastructure'];
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.userslist = Userslist.query();
 
+    vm.teamslist = TeamsService.query();
     // Remove existing Task
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
@@ -53,6 +58,7 @@
       }
       vm.task.parent = { _id: $stateParams.planId };
       vm.task.lastModified = Date.now();
+      vm.task.lastbestknown = lastbestknown;
       // TODO: move create/update logic to service
       if (vm.task._id) {
         vm.task.$update(successCallback, errorCallback);

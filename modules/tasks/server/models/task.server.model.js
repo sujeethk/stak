@@ -20,47 +20,40 @@ var TaskSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Plan'
   },
-  description: String,
-  taskid: String,
-  type: String, //Milestone, Stack, Task
-  importplan: {
-    type: Schema.ObjectId,
-    ref: 'Plan'
-  },
-  category: String,
-  highlight: Boolean,
-  crqs: [String],
-  apps: [{
-    type: Schema.ObjectId,
-    ref: 'App' 
-  }],
-  dcs: [String],
-  status: String,
-  colorstatus: String,
-  progress: String,
-  sql: {
-    type: Boolean,
-    default: false
-  },
-  sqlloc: String,
-  approved: {
-    type: Boolean,
-    default: false
-  },
   child: {
     type: Schema.ObjectId,
     ref: 'Plan'
   },
-  externaldependency: {
-    plan: {
-      type: Schema.ObjectId,
-      ref: 'Plan'
-    },
-    task: [{
-      type: Schema.ObjectId,
-      ref: 'Task'
-    }]
+  lastbestknown: {
+    type: Schema.Types.Mixed
   },
+  description: String,
+  type: String, //Milestone, Stack, Task
+  category: String, //Deploy, Routing, Certiifcation, Infrastructure
+  status: String,
+  colorstatus: String,
+  progress: String,
+  sql: {
+    is: {
+      type: Boolean,
+      default: false
+    },
+    dcs: [String],
+    status: String,
+    sqlloc: String,
+    apps: [{
+      type: Schema.ObjectId,
+      ref: 'App'
+    }],
+  },
+  approved: {
+    type: Boolean,
+    default: false
+  },
+  dependencies: [{
+    type: Schema.ObjectId,
+    ref: 'Task'
+  }],
   sortOrder: Number,
   duration: Number,
   startTime: Date,
@@ -73,10 +66,10 @@ var TaskSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   }],
-  team: [{
+  team: {
     type: Schema.ObjectId,
     ref: 'Team'
-  }],
+  },
   contact: String,
   notes: String,
   lastPaged: Date,

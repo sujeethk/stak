@@ -1,6 +1,10 @@
 <section>
   <div class="page-header">
-    <h1>Plans</h1>
+    <h1>Plans
+      <a class="btn btn-info pull-right" data-ui-sref="plans.create">
+        <i class="glyphicon glyphicon-plus"></i> <b>New</b>
+      </a>
+    </h1>
   </div>
   <div class="list-group">
     <a data-ng-repeat="plan in vm.plans"
@@ -16,7 +20,10 @@
       <h4 class="list-group-item-heading" data-ng-bind="plan.name"></h4>
     </a>
   </div>
-  <div class="alert alert-warning text-center" data-ng-if="vm.plans.$resolved && !vm.plans.length">
+  <div class="alert alert-warning text-center" data-ng-if="vm.plans.$resolved && !vm.plans.length && !vm.failed" >
     No Plans yet, why don't you <a data-ui-sref="plans.create">create one</a>?
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.failed">
+    Error connecting to server
   </div>
 </section>

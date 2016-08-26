@@ -48,7 +48,7 @@ exports.update = function(req, res) {
   var task = req.task ;
 
   task = _.extend(task , req.body);
-
+  task.modifiedBy = req.user;
   task.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -102,7 +102,7 @@ exports.taskByID = function(req, res, next, id) {
     });
   }
 
-  Task.findById(id).populate('createdBy parent', 'displayName name').exec(function (err, task) {
+  Task.findById(id).select('-lastbestknown').populate('createdBy parent', 'displayName name').exec(function (err, task) {
     if (err) {
       return next(err);
     } else if (!task) {

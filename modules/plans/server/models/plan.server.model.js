@@ -25,7 +25,7 @@ var PlanSchema = new Schema({
   },
   domain: {
     type: Schema.ObjectId,
-    ref: 'Domain' 
+    ref: 'Domain'
   },
   category: String,
   crqs: String,
@@ -57,10 +57,6 @@ var PlanSchema = new Schema({
   duration: {
     type: Number,
     default: 0
-  },
-  lock: {
-    type: Boolean,
-    default: false
   },
   edit: {
     type: Boolean,

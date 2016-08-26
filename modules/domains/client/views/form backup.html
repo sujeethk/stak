@@ -13,15 +13,15 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.domain.name" id="name" class="form-control" placeholder="Name" required>
+          <input name="name" type="text" ng-model="vm.domain.name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.domainForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Domain name is required.</p>
           </div>
         </div>
         <div class="form-group" ng-show="vm.domain._id">
           <label class="control-label" for="status">Status</label><br/>
-          <input type="radio" name="status" ng-model="vm.domain.status" id="status" value="active"> Active  &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="status" ng-model="vm.domain.status" id="status"  value="inactive"> Inactive
+          <input type="radio" name="status" ng-model="vm.domain.status" value="active"> Active  &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" ng-model="vm.domain.status" value="inactive"> Inactive
         </div>
         <div class="form-group">
           <label class="control-label" for="manager">Managers</label>
