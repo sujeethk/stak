@@ -146,26 +146,6 @@
               <p class="help-block error-text" ng-message="required">Plan start time is required.</p>
             </div>
           </div>
-          <div class="form-group" ng-show="(vm.plan.status=='InProgress'?false:true)" show-errors>
-            <label class="col-sm-2 control-label" for="initEnd">End Time : </label>
-            <div class="col-sm-5">
-              <div class="input-group">
-                <span class="input-group-btn">
-                    <a class="btn btn-default" data-ng-click="opencal.initEnd='true'">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                    </a>
-                </span>
-                <input name="initEnd" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initEnd" is-open="opencal.initEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
-              </div>
-            </div>
-            <div class="col-sm-5">
-              <div uib-timepicker ng-model="vm.plan.initEnd" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false">
-              </div>
-            </div>
-            <div ng-messages="vm.form.planForm.initEnd.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Plan end time is required.</p>
-            </div>
-          </div>
           <div class="form-group" ng-show="(vm.plan.status=='InProgress'?true:false)">
             <label class="col-sm-2 control-label" for="updatedStart">Updated Start : </label>
             <div class="col-sm-5">
