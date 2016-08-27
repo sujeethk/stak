@@ -54,15 +54,6 @@ exports.delete = function (req, res) {
 
     res.json(user);
   });
-  /*user.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-
-    res.json(user);
-  });*/
 };
 
 /**

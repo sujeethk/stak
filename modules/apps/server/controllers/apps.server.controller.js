@@ -65,8 +65,8 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var app = req.app ;
-
-  app.remove(function(err) {
+  app.status = 'deleted';
+  app.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

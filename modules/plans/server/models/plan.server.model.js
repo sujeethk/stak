@@ -36,7 +36,7 @@ var PlanSchema = new Schema({
   dcs: [String],
   status: {
     type: String,
-    default: 'Draft'  // Draft, Final, Started, Completed, Canceled
+    default: 'Draft'  // Draft, Final, Started, Completed, Canceled, deleted
   },
   execution: {
     completion: {

@@ -65,7 +65,7 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var release = req.release ;
-  release.status = 'inactive';
+  release.status = 'deleted';
   release.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -80,7 +80,7 @@ exports.delete = function(req, res) {
 /**
  * List of Releases
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
   Release.find({}).sort('status name').populate('createdBy', 'displayName').exec(function(err, releases) {
     if (err) {
       return res.status(400).send({

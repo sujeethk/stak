@@ -64,8 +64,8 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var team = req.team ;
-
-  team.remove(function(err) {
+  team.status = 'deleted';
+  team.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

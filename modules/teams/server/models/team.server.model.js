@@ -18,7 +18,7 @@ var TeamSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['active', 'inactive'],
+    enum: ['active', 'inactive', 'deleted'],
     default: 'active'
   },
   dg: {

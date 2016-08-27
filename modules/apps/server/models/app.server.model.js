@@ -24,7 +24,7 @@ var AppSchema = new Schema({
   },
   status:{
     type: String,
-    enum: ['active', 'retired'],
+    enum: ['active', 'retired', 'inactive', 'deleted'],
     default: 'active'
   },
   manager: {

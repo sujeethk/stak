@@ -87,8 +87,8 @@ exports.bulkupdate = function(req, res) {
  */
 exports.delete = function(req, res) {
   var task = req.task ;
-
-  task.remove(function(err) {
+  task.status = 'deleted';
+  task.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

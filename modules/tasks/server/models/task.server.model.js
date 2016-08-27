@@ -32,7 +32,7 @@ var TaskSchema = new Schema({
   category: String, //Deploy, Routing, Certiifcation, Infrastructure
   status: {
     type: String,
-    default: 'Draft' //Draft, Approved, Started, Completed, Canceled
+    default: 'Draft' //Draft, Approved, Started, Completed, Canceled, deleted
   },
   colorstatus: {
     type: String,
