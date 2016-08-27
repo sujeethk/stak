@@ -31,11 +31,12 @@
     vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
     vm.options.status = ['Draft', 'Final', 'InProgress', 'Completed', 'Canceled'];
     vm.dateformat = 'MMM dd, yyyy';
-
-    vm.userslist = Userslist.query();
-    vm.domainslist = DomainsService.query();
-    vm.appslist = AppsService.query();
-    vm.releaseslist = ReleasesService.query();
+    if($state.current.name === 'plans.edit'){
+      vm.userslist = Userslist.query();
+      vm.domainslist = DomainsService.query();
+      vm.appslist = AppsService.query();
+      vm.releaseslist = ReleasesService.query();
+    }
     vm.tasks = (vm.plan._id ? TasksService.query({ planId: vm.plan._id }) : []);
     // Remove existing Plan
     function remove() {
