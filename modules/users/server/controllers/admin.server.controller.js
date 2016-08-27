@@ -54,22 +54,13 @@ exports.delete = function (req, res) {
 
     res.json(user);
   });
-  /*user.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-
-    res.json(user);
-  });*/
 };
 
 /**
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({ 'status': { $in:['active', 'locked', 'inactive'] } }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({ 'status': { '$ne': 'deleted' } }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

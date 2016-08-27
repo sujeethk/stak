@@ -3,7 +3,7 @@
     <h1>{{vm.task._id ? 'Edit Task' : 'New Task'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.taskForm" class="form-horizontal" ng-submit="vm.save(vm.form.taskForm.$valid)" novalidate>
+    <form name="vm.form.taskForm" class="form-horizontal" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
@@ -47,7 +47,7 @@
           <label class="control-label" for="members">POC</label>
           <ui-select multiple ng-model="vm.task.poc" theme="bootstrap" sortable="true">
             <ui-select-match placeholder="Select or search a person in the list...">{{$item.displayName}}</ui-select-match>
-            <ui-select-choices repeat="user in vm.userslist | propsFilter: {displayName: $select.search}">
+            <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
               <div ng-bind-html="user.displayName | highlight: $select.search"></div>
               <small>
                 email: {{user.email}}
@@ -58,14 +58,73 @@
         <div class="form-group">
           <label class="control-label" for="team">Team</label>
           <ui-select name="team" ng-model="vm.task.team" theme="bootstrap">
-            <ui-select-match placeholder="Or select a team">{{$select.selected.displayName}}</ui-select-match>
+            <ui-select-match placeholder="Or select a team">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="team in vm.teamslist | filter: $select.search">
               <div ng-bind-html="team.name | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>
         </div>
+        <div class="form-group" ng-show="vm.task.type === 'Stack'">
+          <label class="control-label" for="child">Child Plan</label>
+          <ui-select name="team" ng-model="vm.task.child" theme="bootstrap">
+            <ui-select-match placeholder="Select a child plan">{{$select.selected.release.name}} - {{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="plan in vm.planslist | filter: $select.search">
+              <small ng-bind-html="plan.release.name | highlight: $select.search"></small> -
+              <i ng-bind-html="plan.name | highlight: $select.search"></i>
+            </ui-select-choices>
+          </ui-select>
+        </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.task._id ? 'Update' : 'Create'}}</button>
+          <label class="control-label" for="sql.is">SQL?</label>
+          <input type="checkbox" name="sql.is" ng-model="vm.task.sql.is" value="active">
+        </div>
+        <div ng-show="vm.task.sql.is">
+          <div class="form-group">
+            <label class="control-label">SQL Location</label>
+            <textarea rows="3" ng-model="vm.task.sql.location" class="form-control" placeholder="SQL Location"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="apps">Applications</label>
+            <ui-select multiple ng-model="vm.task.sql.apps" theme="bootstrap">
+              <ui-select-match placeholder="Select applications...">{{$item.name}} &lt;{{$item.ait}}&gt;</ui-select-match>
+              <ui-select-choices repeat="application in vm.appslist | filter: $select.search">
+                <div ng-bind-html="application.name | highlight: $select.search"></div>
+                <small>
+                  ait: <span ng-bind-html="''+application.ait | highlight: $select.search"></span>
+                </small>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="dcs">Datacenter(s)</label>
+            <ui-select multiple ng-model="vm.task.sql.dcs" theme="bootstrap" close-on-select="false">
+              <ui-select-match placeholder="Select applications...">{{$item}}</ui-select-match>
+              <ui-select-choices repeat="dc in vm.options.dcs | filter: $select.search">
+                <div ng-bind-html="dc | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="contact">Contact</label>
+          <input name="name" type="text" ng-model="vm.task.contact" class="form-control" placeholder="Contact info">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Notes</label>
+          <textarea rows="3" ng-model="vm.task.notes" class="form-control" placeholder="Notes"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="subscribers">Subscriber(s)</label>
+          <ui-select multiple tagging tagging-label="" ng-model="vm.task.subscribers" theme="bootstrap">
+            <ui-select-match placeholder="Select subscribers...">{{$item}}</ui-select-match>
+            <ui-select-choices repeat="user in vm.task.subscribers | filter:$select.search">
+              {{user}}
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group">
+          <button type="button" ng-click="vm.save(vm.form.taskForm.$valid)" class="btn btn-primary">{{vm.task._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ng-click="vm.cancelform()" class="btn btn-default">Cancel</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

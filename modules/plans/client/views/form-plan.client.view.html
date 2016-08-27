@@ -3,7 +3,7 @@
     <h1>{{vm.plan._id ? 'Edit Plan' : 'New Plan'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.planForm" class="form-horizontal" ng-submit="vm.save(vm.form.planForm.$valid)" novalidate>
+    <form name="vm.form.planForm" class="form-horizontal" novalidate>
       <fieldset>
       <uib-tabset active="activeForm">
         <uib-tab index="0" heading="Overview">
@@ -86,7 +86,7 @@
             <label class="control-label" for="apps">Applications</label>
             <ui-select multiple ng-model="vm.plan.apps" theme="bootstrap">
               <ui-select-match placeholder="Select applications...">{{$item.name}} &lt;{{$item.ait}}&gt;</ui-select-match>
-              <ui-select-choices repeat="application in vm.appslist | propsFilter: {name: $select.search, ait: $select.search}">
+              <ui-select-choices repeat="application in vm.appslist | filter: $select.search">
                 <div ng-bind-html="application.name | highlight: $select.search"></div>
                 <small>
                   ait: <span ng-bind-html="''+application.ait | highlight: $select.search"></span>
@@ -144,26 +144,6 @@
             </div>
             <div ng-messages="vm.form.planForm.initStart.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Plan start time is required.</p>
-            </div>
-          </div>
-          <div class="form-group" ng-show="(vm.plan.status=='InProgress'?false:true)" show-errors>
-            <label class="col-sm-2 control-label" for="initEnd">End Time : </label>
-            <div class="col-sm-5">
-              <div class="input-group">
-                <span class="input-group-btn">
-                    <a class="btn btn-default" data-ng-click="opencal.initEnd='true'">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                    </a>
-                </span>
-                <input name="initEnd" type="text" class="form-control" uib-datepicker-popup="{{vm.dateformat}}" ng-model="vm.plan.initEnd" is-open="opencal.initEnd" datepicker-options="{showWeeks:false,startingDay:1}" close-text="Close" required/>
-              </div>
-            </div>
-            <div class="col-sm-5">
-              <div uib-timepicker ng-model="vm.plan.initEnd" hour-step="1" minute-step="5" show-meridian="true" show-spinners="false">
-              </div>
-            </div>
-            <div ng-messages="vm.form.planForm.initEnd.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Plan end time is required.</p>
             </div>
           </div>
           <div class="form-group" ng-show="(vm.plan.status=='InProgress'?true:false)">
@@ -232,7 +212,8 @@
         </uib-tab>
       </uib-tabset>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.plan._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ng-click="vm.save(vm.form.planForm.$valid)" class="btn btn-primary">{{vm.plan._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ng-click="vm.cancelform()" class="btn btn-default">Cancel</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

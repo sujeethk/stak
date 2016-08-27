@@ -36,19 +36,45 @@ var PlanSchema = new Schema({
   dcs: [String],
   status: {
     type: String,
-    default: 'Draft'
+    default: 'Draft'  // Draft, Final, Started, Completed, Canceled, deleted
   },
   execution: {
-    completion: Number,
-    status: String,
-    colorstatus: String,
-    isDelay: Boolean,
-    totalTasks: Number,
-    completedTasks: Number,
-    inprogressTasks: Number,
-    lateTasks: Number,
-    delayTime: Number,
-    voidTasks: Number
+    completion: {
+      type: Number,
+      default: 0
+    },
+    colorstatus: {
+      type:  String,
+      default: 'Green'
+    },
+    isDelay: {
+      type: Boolean,
+      default: false
+    },
+    totalTasks: {
+      type: Number,
+      default: 0
+    },
+    completedTasks: {
+      type: Number,
+      default: 0
+    },
+    inprogressTasks: {
+      type: Number,
+      default: 0
+    },
+    lateTasks: {
+      type: Number,
+      default: 0
+    },
+    delayTime: {
+      type: Number,
+      default: 0
+    },
+    canceledTasks: {
+      type: Number,
+      default: 0
+    },
   },
   release: {
     type: Schema.ObjectId,

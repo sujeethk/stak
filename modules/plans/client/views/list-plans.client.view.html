@@ -7,18 +7,64 @@
     </h1>
   </div>
   <div class="list-group">
-    <a data-ng-repeat="plan in vm.plans"
-       data-ui-sref="plans.view({ planId: plan._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span data-ng-bind="plan.created | date:'mediumDate'"></span>
-        by
-        <span data-ng-if="plan.createdBy" data-ng-bind="plan.createdBy.displayName"></span>
-        <span data-ng-if="!plan.createdBy">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" data-ng-bind="plan.name"></h4>
-    </a>
+    <table st-table="planCollection" st-safe-src="vm.plans" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Release</th>
+          <th st-sort="name">Plan Name</th>
+          <th st-sort="initStart" st-sort-default="true">Start Date/Time</th>
+          <th>Edit</th>
+        </tr>
+        <tr>
+            <th>
+              <select st-search="domain.name" class="form-control">
+                  <option value="">
+                      All items
+                  </option>
+                  <option ng-repeat="plan in planCollection | unique: 'domain.name'" value="{{ plan.domain.name }}">
+                      {{ plan.domain.name }}
+                  </option>
+              </select>
+            </th>
+            <th>
+              <select st-search="release.name" class="form-control">
+                  <option value="">
+                      All items
+                  </option>
+                  <option ng-repeat="plan in planCollection | unique: 'release.name'" value="{{ plan.release.name }}">
+                      {{ plan.release.name }}
+                  </option>
+              </select>
+            </th>
+            <th>
+                <input st-search="name" class="input-sm form-control" placeholder="Search plan name" type="search"/>
+            </th>
+            <th>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="plan in planCollection">
+          <td>{{plan.domain.name}}</td>
+          <td>{{plan.release.name}}</td>
+          <td><a data-ui-sref="plans.view({ planId: plan._id })">{{plan.name}}</a></td>
+          <td>{{plan.initStart | date:"MMM dd,yyyy hh:mm a"}}</td>
+          <td>
+            <a class="btn btn-primary" data-ui-sref="plans.edit({ planId: plan._id })">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot ng-show="vm.plans.length>15">
+        <tr>
+          <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="vm.plans.$resolved && !vm.plans.length && !vm.failed" >
     No Plans yet, why don't you <a data-ui-sref="plans.create">create one</a>?

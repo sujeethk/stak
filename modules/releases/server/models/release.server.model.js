@@ -19,7 +19,7 @@ var ReleaseSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['active', 'inactive'],
+    enum: ['active', 'inactive', 'deleted'],
     default: 'active'
   },
   start: {
@@ -29,6 +29,10 @@ var ReleaseSchema = new Schema({
   end: {
     type: Date,
     required: 'Please fill End date'
+  },
+  isCurrentRelease: {
+    type: Boolean,
+    default: false
   },
   created: {
     type: Date,

@@ -30,9 +30,18 @@ var TaskSchema = new Schema({
   description: String,
   type: String, //Milestone, Stack, Task
   category: String, //Deploy, Routing, Certiifcation, Infrastructure
-  status: String,
-  colorstatus: String,
-  progress: String,
+  status: {
+    type: String,
+    default: 'Draft' //Draft, Approved, Started, Completed, Canceled, deleted
+  },
+  colorstatus: {
+    type: String,
+    default: 'Green' //Green, Yellow, Red from Child plan status
+  },
+  progress: {
+    type: Number,
+    default: 0 //% from child plan
+  },
   sql: {
     is: {
       type: Boolean,
@@ -40,24 +49,23 @@ var TaskSchema = new Schema({
     },
     dcs: [String],
     status: String,
-    sqlloc: String,
+    location: String,
     apps: [{
       type: Schema.ObjectId,
       ref: 'App'
     }],
   },
-  approved: {
-    type: Boolean,
-    default: false
-  },
-  dependencies: [{
+  dependents: [{
     type: Schema.ObjectId,
     ref: 'Task'
   }],
-  sortOrder: Number,
+  sortOrder: {
+    type: Number,
+    default: 999
+  },
   duration: Number,
-  startTime: Date,
-  endTime: Date,
+  initStart: Date,
+  initEnd: Date,
   updatedStart: Date,
   updatedEnd: Date,
   actualStart: Date,
@@ -89,7 +97,9 @@ var TaskSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  subscribers: String,
+  subscribers: [{
+    type: String
+  }],
   created: {
     type: Date,
     default: Date.now

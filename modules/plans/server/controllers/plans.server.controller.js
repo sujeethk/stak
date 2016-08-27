@@ -65,8 +65,8 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var plan = req.plan ;
-
-  plan.remove(function(err) {
+  plan.status = 'deleted';
+  plan.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Plans
  */
 exports.list = function(req, res) {
-  Plan.find().sort('-created').populate('createdBy', 'displayName').exec(function(err, plans) {
+  Plan.find({ 'status' : { '$ne': 'deleted' } }).sort('-created').populate('createdBy release domain', 'displayName name').exec(function(err, plans) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.planByID = function(req, res, next, id) {
     });
   }
 
-  Plan.findById(id).populate('createdBy author apps domain release', 'displayName displayName name ait name name').exec(function (err, plan) {
+  Plan.findById(id).populate('createdBy author domain release apps', 'displayName name ait').exec(function (err, plan) {
     if (err) {
       return next(err);
     } else if (!plan) {
