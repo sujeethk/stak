@@ -49,12 +49,6 @@
       $state.go('plans.list');
     }
 
-    vm.dragend = function() { //Todo: Call this function only when update is called instead of each reorder
-      for(var i = 0; i < vm.tasks.length; i++){
-        vm.tasks[i].sortOrder = i;
-      }
-    };
-
     // Save Plan
     function save(isValid) {
       if (!isValid) {
@@ -65,6 +59,9 @@
       // TODO: move create/update logic to service
       if (vm.plan._id) {
         //Call bulk update api to update sortorder and any other changes from the form on update
+        for(var i = 0; i < vm.tasks.length; i++){
+          vm.tasks[i].sortOrder = i;
+        }
         var req = {
           method: 'PUT',
           url: 'api/plans/'+vm.plan._id+'/tasks',
