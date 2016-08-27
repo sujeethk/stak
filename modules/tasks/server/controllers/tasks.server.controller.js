@@ -61,6 +61,28 @@ exports.update = function(req, res) {
 };
 
 /**
+ * Bulk Update Tasks
+ */
+exports.bulkupdate = function(req, res) {
+  var tasks = req.body;
+  var msg = '';
+  for(var i = 0; i < tasks.length; i++){
+    Task.findOneAndUpdate({ '_id': tasks[i]._id }, { 'sortOrder': tasks[i].sortOrder }, function(err){
+      if(err){
+        msg+='Errored on task ' + tasks[i]._id + ',';
+      }
+    });
+  }
+
+  if(msg === ''){
+    return res.status(200).send({ message: 'Successful save' });
+  } else {
+    return res.status(400).send({ message: msg });
+  }
+
+};
+
+/**
  * Delete an Task
  */
 exports.delete = function(req, res) {
@@ -81,7 +103,7 @@ exports.delete = function(req, res) {
  * List of Tasks
  */
 exports.list = function(req, res) {
-  Task.find({ 'parent': { '_id': req.params.planId } }).sort('-created').populate('createdBy parent', 'displayName name').exec(function(err, tasks) {
+  Task.find({ 'parent': { '_id': req.params.planId } }).sort('sortOrder').populate('createdBy parent', 'displayName name').exec(function(err, tasks) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

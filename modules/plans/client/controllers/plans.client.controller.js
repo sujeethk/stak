@@ -6,9 +6,9 @@
     .module('plans')
     .controller('PlansController', PlansController);
 
-  PlansController.$inject = ['$scope', '$state', '$stateParams', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService', 'TasksService'];
+  PlansController.$inject = ['$scope', '$state', '$stateParams', '$http', 'Authentication', 'planResolve', 'Userslist', 'DomainsService', 'AppsService', 'ReleasesService', 'TasksService'];
 
-  function PlansController ($scope, $state, $stateParams, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService, TasksService) {
+  function PlansController ($scope, $state, $stateParams, $http, Authentication, plan, Userslist, DomainsService, AppsService, ReleasesService, TasksService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -48,7 +48,7 @@
       $state.go('plans.list');
     }
 
-    vm.dragend = function() {
+    vm.dragend = function() { //Todo: Call this function only when update is called instead of each reorder
       for(var i = 0; i < vm.tasks.length; i++){
         vm.tasks[i].sortOrder = i;
       }
@@ -63,7 +63,16 @@
       vm.plan.lastModified = Date.now();
       // TODO: move create/update logic to service
       if (vm.plan._id) {
-        vm.plan.$update(successCallback, errorCallback);
+        //Call bulk update api to update sortorder and any other changes from the form on update
+        var req = {
+          method: 'PUT',
+          url: 'api/plans/'+vm.plan._id+'/tasks',
+          data: vm.tasks
+        };
+
+        $http(req).then(function(){
+          vm.plan.$update(successCallback, errorCallback);
+        }, errorCallback);
       } else {
         vm.plan.$save(successCallback, errorCallback);
       }

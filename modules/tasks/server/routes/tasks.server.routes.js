@@ -10,12 +10,13 @@ module.exports = function(app) {
   // Tasks Routes
   app.route('/api/plans/:planId/tasks').all(tasksPolicy.isAllowed)
     .get(tasks.list)
-    .post(tasks.create);
+    .post(tasks.create)
+    .put(tasks.bulkupdate);
 
   app.route('/api/plans/:planId/tasks/:taskId').all(tasksPolicy.isAllowed)
     .get(tasks.read)
     .put(tasks.update)
-    .delete(tasks.delete);
+    .delete(tasks.delete);    
 
   // Finish by binding the Task middleware
   app.param('taskId', tasks.taskByID);
