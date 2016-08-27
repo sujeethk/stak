@@ -1,35 +1,33 @@
 <section>
   <div class="page-header">
-    <h1 data-ng-bind="vm.plan.name"></h1>
+    <h3>{{vm.plan.name}} {{vm.plan.category}} - <small>{{vm.plan.release.name}}</small></h3>
+    <small><i>Author : {{vm.plan.author.displayName}}       Version: {{vm.plan.status}}</i></small>
   </div>
   <div class="pull-right"
        data-ng-show="vm.plan.isCurrentUserOwner">
+    <a class="btn btn-success"
+          ng-click="startExecution()">
+          <i class="glyphicon glyphicon-play"></i> <em>Start</em>
+    </a>
     <a class="btn btn-primary"
        data-ui-sref="plans.edit({ planId: vm.plan._id })">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
-    <a class="btn btn-primary" data-ng-click="vm.remove()">
+    <a class="btn btn-danger" data-ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span data-ng-bind="vm.plan.created | date:'mediumDate'"></span>
-      by
-      <span data-ng-if="vm.plan.createdBy"
-            data-ng-bind="vm.plan.createdBy.displayName"></span>
-      <span data-ng-if="!vm.plan.createdBy">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" data-ng-bind="vm.plan.status"></p>
-  <section>
+  <div>
+    Start: {{(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart) | date : 'MMM d, y h:mm a'}}<br/>
+    Duration: {{vm.plan.duration}} Minutes
+  </div><br/><br/>
+  <div>
     <div class="page-header">
-      <h3>Tasks
+      <h4>Tasks
         <a class="btn btn-info pull-right" data-ui-sref="tasks.create({ planId: vm.plan._id })">
-          <i class="glyphicon glyphicon-plus"></i> <b>Add Task</b>
+          <i class="glyphicon glyphicon-plus"></i> Add Task
         </a>
-      </h3>
+      </h4>
     </div>
     <div class="list-group">
       <a data-ng-repeat="task in vm.tasks"
@@ -48,5 +46,5 @@
     <div class="alert alert-warning text-center" data-ng-if="vm.tasks.$resolved && !vm.tasks.length">
       No Tasks yet, why don't you <a data-ui-sref="tasks.create">create one</a>?
     </div>
-  </section>
+  </div>
 </section>

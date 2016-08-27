@@ -22,7 +22,7 @@
                   <option value="">
                       All items
                   </option>
-                  <option ng-repeat="plan in planCollection" value="{{ plan.domain.name }}">
+                  <option ng-repeat="plan in planCollection | unique: 'domain.name'" value="{{ plan.domain.name }}">
                       {{ plan.domain.name }}
                   </option>
               </select>
@@ -32,7 +32,7 @@
                   <option value="">
                       All items
                   </option>
-                  <option ng-repeat="plan in planCollection" value="{{ plan.release.name }}">
+                  <option ng-repeat="plan in planCollection | unique: 'release.name'" value="{{ plan.release.name }}">
                       {{ plan.release.name }}
                   </option>
               </select>
