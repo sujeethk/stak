@@ -67,13 +67,13 @@ exports.bulkupdate = function(req, res) {
   var tasks = req.body;
   var msg = '';
   for(var i = 0; i < tasks.length; i++){
-    Task.findOneAndUpdate({ '_id': tasks[i]._id }, { 'sortOrder': tasks[i].sortOrder }, function(err){
-      if(err){
-        msg+='Errored on task ' + tasks[i]._id + ',';
-      }
-    });
+    Task.findOneAndUpdate({ '_id': tasks[i]._id }, { 'sortOrder': tasks[i].sortOrder }, callbackfnbu);
   }
-
+  function callbackfnbu(err){
+    if(err){
+      msg = 'Errored on saving tasks structure';
+    }
+  }
   if(msg === ''){
     return res.status(200).send({ message: 'Successful save' });
   } else {

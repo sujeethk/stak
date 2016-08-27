@@ -30,6 +30,10 @@ var ReleaseSchema = new Schema({
     type: Date,
     required: 'Please fill End date'
   },
+  isCurrentRelease: {
+    type: Boolean,
+    default: false
+  },
   created: {
     type: Date,
     default: Date.now
