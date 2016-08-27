@@ -80,7 +80,7 @@ exports.delete = function(req, res) {
  * List of Teams
  */
 exports.list = function(req, res) {
-  Team.find().sort('status name').populate('manager createdBy primarypoc domain', 'displayName name').exec(function(err, teams) {
+  Team.find({ 'status': { '$ne': 'deleted' } }).sort('status name').populate('manager createdBy primarypoc domain', 'displayName name').exec(function(err, teams) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

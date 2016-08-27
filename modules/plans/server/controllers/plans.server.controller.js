@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Plans
  */
 exports.list = function(req, res) {
-  Plan.find().sort('-created').populate('createdBy release domain', 'displayName name').exec(function(err, plans) {
+  Plan.find({ 'status' : { '$ne': 'deleted' } }).sort('-created').populate('createdBy release domain', 'displayName name').exec(function(err, plans) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

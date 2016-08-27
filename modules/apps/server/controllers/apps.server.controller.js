@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Apps
  */
 exports.list = function(req, res) {
-  App.find().sort('status ait name').populate('createdBy manager domain', 'displayName name').exec(function(err, apps) {
+  App.find({ 'status': 'active' }).sort('status ait name').populate('createdBy manager domain', 'displayName name').exec(function(err, apps) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

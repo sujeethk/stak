@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Releases
  */
 exports.list = function(req, res) {
-  Release.find({}).sort('status name').populate('createdBy', 'displayName').exec(function(err, releases) {
+  Release.find({ 'status': 'active' }).sort('status name').populate('createdBy', 'displayName').exec(function(err, releases) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

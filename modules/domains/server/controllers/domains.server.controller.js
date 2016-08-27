@@ -82,7 +82,7 @@ exports.delete = function(req, res) {
  * List of Domains
  */
 exports.list = function(req, res) {
-  Domain.find({}).sort('status name').populate('createdBy manager', 'displayName').exec(function(err, domains) {
+  Domain.find({ 'status': 'active' }).sort('status name').populate('createdBy manager', 'displayName').exec(function(err, domains) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
