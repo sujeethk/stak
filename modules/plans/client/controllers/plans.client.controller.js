@@ -68,7 +68,7 @@
     }
 
     function cancelform() {
-      if($state.current.name === 'plans.edit'{
+      if($state.current.name === 'plans.edit'){
         $state.go('plans.view', { planId: vm.plan._id });
       } else {
         $state.go('plans.list');
