@@ -40,23 +40,25 @@
     }
 
     //Calculate start and end times for tasks
-    vm.tasks.$promise.then(function(){
-      for(var i = 0; i < vm.tasks.length; i++){
-        if(vm.tasks[i].status === 'Draft' || 'Approved' || 'Canceled'){
-          if(i===0){
-            vm.tasks[i].initStart = vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart;
-            vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
-          } else {
-            vm.tasks[i].initStart = vm.tasks[i-1].initEnd;
-            vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+    if(vm.plan._id){
+      vm.tasks.$promise.then(function(){
+        for(var i = 0; i < vm.tasks.length; i++){
+          if(vm.tasks[i].status === 'Draft' || 'Approved' || 'Canceled'){
+            if(i===0){
+              vm.tasks[i].initStart = vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart;
+              vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+            } else {
+              vm.tasks[i].initStart = vm.tasks[i-1].initEnd;
+              vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+            }
+          } else if(vm.tasks[i].status === 'Started'){
+
+          } else if(vm.tasks[i].status === 'Completed'){
+
           }
-        } else if(vm.tasks[i].status === 'Started'){
-
-        } else if(vm.tasks[i].status === 'Completed'){
-
         }
-      }
-    });
+      });
+    }
     
     // Remove existing Plan
     function remove() {
