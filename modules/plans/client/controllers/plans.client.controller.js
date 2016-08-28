@@ -59,7 +59,7 @@
         }
       });
     }
-    
+
     // Remove existing Plan
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
@@ -68,7 +68,12 @@
     }
 
     function cancelform() {
-      $state.go('plans.view', { planId: vm.plan._id });
+      if($state.current.name === 'plans.edit'{
+        $state.go('plans.view', { planId: vm.plan._id });
+      } else {
+        $state.go('plans.list');
+      }
+
     }
 
     // Save Plan
