@@ -28,7 +28,7 @@ exports.signup = function (req, res) {
 
   // Add missing user fields
   user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
+  user.displayName = user.lastName + ', ' + user.firstName;
 
 
   // Then save the user
@@ -131,7 +131,7 @@ exports.oauthCallback = function (strategy) {
 /**
  * Helper function to save or update a OAuth user profile
  */
-/* 
+/*
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
   if (!req.user) {
     // Define a search query fields
