@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    title: 'SKAT',
+    title: 'STAK',
     description: 'Modular task scheduler',
     keywords: 'modular, task, plan, project, schedule',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
@@ -22,7 +22,7 @@ module.exports = {
     secure: false
   },
   // sessionSecret should be changed for security measures and concerns
-  sessionSecret: process.env.SESSION_SECRET || 'SKAT',
+  sessionSecret: process.env.SESSION_SECRET || 'STAK',
   // sessionKey is set to the generic sessionId key used by PHP applications
   // for obsecurity reasons
   sessionKey: 'sessionId',
