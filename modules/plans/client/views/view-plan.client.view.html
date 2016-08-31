@@ -1,12 +1,12 @@
 <section>
   <div class="page-header">
     <h3>{{vm.plan.name}} {{vm.plan.category}} - <small>{{vm.plan.release.name}}</small></h3>
-    <small><i>Author : {{vm.plan.author.displayName}}       Version: {{vm.plan.status}}</i></small>
+    <small><i>Author : {{vm.plan.author.displayName}} | Status: {{vm.plan.status}}</i></small>
   </div>
   <div class="pull-right"
        data-ng-show="vm.plan.isCurrentUserOwner">
     <a class="btn btn-success"
-          ng-click="startExecution()" ng-show="vm.plan.status=='Final'">
+          ng-click="vm.startExecution()" ng-show="vm.plan.status=='Final'">
           <i class="glyphicon glyphicon-play"></i> <em>Start</em>
     </a>
     <a class="btn btn-primary"
@@ -18,10 +18,10 @@
     </a>
   </div>
   <div>
-    {{(vm.plan.status=='InProgress' || vm.plan.status=='Completed'?'Actual':'Estimated')}} Start: {{(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart) | date : 'MMM d, y h:mm a'}}<br/>
+    {{(vm.plan.status=='Started' || vm.plan.status=='Completed'?'Actual':'Estimated')}} Start: {{(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart) | date : 'MMM d, y h:mm a'}}<br/>
     Duration: {{vm.plan.duration}} Minutes
   </div>
-  <div ng-show="vm.plan.status=='InProgress' || vm.plan.status=='Completed'">
+  <div ng-show="vm.plan.status=='Started' || vm.plan.status=='Completed'">
     <uib-progressbar value="(vm.plan.execution.completion)" type="{{(vm.plan.execution.colorstatus=='Green'?'success':(vm.plan.execution.colorstatus=='Yellow'?'warning':'danger'))}}">{{vm.plan.execution.completion}}%</uib-progressbar>
   </div><br/><br/>
   <div>
@@ -42,7 +42,7 @@
             <th st-sort="sortOrder" st-sort-default="true">Task #</th>
             <th>Task Name</th>
             <th>POC</th>
-            <th></th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +54,7 @@
             <td><a data-ui-sref="tasks.view({ taskId: task._id, planId: task.parent._id })">{{task.name}}</a></td>
             <td><span ng-repeat="poc in task.poc">{{poc.displayName}}; </span></td>
             <td>
-              <a class="btn btn-primary" ng-show="task.status=='Approved' && (task.poc._id==user._id || vm.plan.isCurrentUserOwner)" ng-click="taskCompleted(task._id)">
+              <a class="btn btn-primary" uib-tooltip="Mark Completed" ng-show="task.status=='Started' && (task.poc._id==user._id || vm.plan.isCurrentUserOwner)" ng-click="taskCompleted(task._id)">
                 <i class="glyphicon glyphicon-check"></i>
               </a>
             </td>

@@ -14,6 +14,6 @@ module.exports = {
       pass: ''
     }
   },
-  sessionSecret: process.env.SESSION_SECRET || 'SKAT',
+  sessionSecret: process.env.SESSION_SECRET || 'STAK',
 };
 */

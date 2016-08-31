@@ -1,5 +1,5 @@
 {
-  "name": "skat",
+  "name": "stak",
   "description": "Modular task scheduler",
   "version": "0.0.1",
   "meanjs-version": "0.4.2",
@@ -8,14 +8,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sujeethk/skat.git"
+    "url": "https://github.com/sujeethk/stak.git"
   },
   "engines": {
     "node": ">=6.3.1",
     "npm": ">=3.10.6"
   },
   "scripts": {
-    "start": "gulp",
+    "start": "gulp prod",
     "test": "gulp test",
     "postinstall": "bower install --config.interactive=false"
   },
