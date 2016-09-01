@@ -47,16 +47,14 @@
         for(var i = 0; i < vm.tasks.length; i++){
           if(vm.tasks[i].status === 'Draft' || 'Approved' || 'Canceled'){
             if(i===0){
-              vm.tasks[i].initStart = new Date(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart);
-              vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+              vm.tasks[i].updatedStart = new Date(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart);
+              vm.tasks[i].updatedEnd = new Date(vm.tasks[i].updatedStart.getTime() + (vm.tasks[i].duration*60000));
             } else {
-              vm.tasks[i].initStart = vm.tasks[i-1].initEnd;
-              vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+              vm.tasks[i].updatedStart = vm.tasks[i-1].updatedEnd;
+              vm.tasks[i].updatedEnd = new Date(vm.tasks[i].updatedStart.getTime() + (vm.tasks[i].duration*60000));
             }
           } else if(vm.tasks[i].status === 'Started'){
-
-          } else if(vm.tasks[i].status === 'Completed'){
-
+            vm.tasks[i].updatedEnd = new Date(vm.tasks[i].actualStart.getTime() + (vm.tasks[i].duration*60000));
           }
         }
       });
