@@ -20,6 +20,7 @@
         controller: 'TasksListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Tasks List'
         }
       })

@@ -20,6 +20,7 @@
         controller: 'TeamsListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Teams List'
         }
       })
