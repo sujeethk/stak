@@ -109,6 +109,7 @@
           </div>
         </uib-tab>
         <uib-tab index="2" heading="Time">
+          <br/>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="autolock">Auto Lock at : </label>
             <div class="col-sm-5">
@@ -191,6 +192,17 @@
           </div>
         </uib-tab>
         <uib-tab index="3" heading="Tasks" ng-show="vm.plan._id">
+          <div class="row">
+            <button type="button" class="btn btn-info pull-right" ng-click="vm.addnewtask()" >
+              <i class="glyphicon glyphicon-plus"></i> Add Task
+            </button>
+          </div>
+          <div class="row" style="margin-left:100px">
+              <label class="col-md-4">Task Name</label>
+              <label class="col-md-2">Category</label>
+              <label class="col-md-2">Duration</label>
+              <label class="col-md-4">POCs</label>
+          </div>
           <div class="tasksDnd">
             <ul dnd-list="vm.tasks">
                 <li ng-repeat="item in vm.tasks"
@@ -202,8 +214,27 @@
                     >
                     <dnd-nodrag>
                       <div dnd-handle class="handle">:::</div>
-                      <div class="name">
-                          <input type="text" ng-model="item.name" class="form-control input-sm">
+                      <div class="name row">
+                        <div class="col-md-4">
+                          <input class="form-control" type="text" ng-model="item.name">
+                        </div>
+                        <div class="col-md-2">
+                          <select class="form-control" name="category" ng-model="item.category" ng-options="o as o for o in vm.options.task.category" required></select>
+                        </div>
+                        <div class="col-md-2">
+                          <input class="form-control" name="duration" type="number" ng-model="item.duration" placeholder="in Minutes" min="0" max="999" step="5" required>
+                        </div>
+                        <div class="col-md-4">
+                          <ui-select multiple ng-model="item.poc" theme="bootstrap" sortable="true">
+                            <ui-select-match placeholder="Select or search a person in the list...">{{$item.displayName}}</ui-select-match>
+                            <ui-select-choices repeat="user in vm.userslist | filter: $select.search">
+                              <div ng-bind-html="user.displayName | highlight: $select.search"></div>
+                              <small>
+                                email: {{user.email}}
+                              </small>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
                       </div>
                     </dnd-nodrag>
                 </li>

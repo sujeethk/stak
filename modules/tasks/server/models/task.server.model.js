@@ -28,7 +28,10 @@ var TaskSchema = new Schema({
     type: Schema.Types.Mixed
   },
   description: String,
-  type: String, //Milestone, Stack, Task
+  type: {
+    type: String,
+    default: 'Task'
+  }, //Milestone, Stack, Task
   category: String, //Deploy, Routing, Certiifcation, Infrastructure
   status: {
     type: String,
@@ -93,17 +96,9 @@ var TaskSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  lastModified: {
-    type: Date,
-    default: Date.now
-  },
   subscribers: [{
     type: String
-  }],
-  created: {
-    type: Date,
-    default: Date.now
-  }
-});
+  }]
+}, { timestamps: true });
 
 mongoose.model('Task', TaskSchema);

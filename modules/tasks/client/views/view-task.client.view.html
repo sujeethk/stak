@@ -14,7 +14,7 @@
   <small>
     <em class="text-muted">
       Posted on
-      <span data-ng-bind="vm.task.created | date:'mediumDate'"></span>
+      <span data-ng-bind="vm.task.createdAt | date:'mediumDate'"></span>
       by
       <span data-ng-if="vm.task.createdBy"
             data-ng-bind="vm.task.createdBy.displayName"></span>

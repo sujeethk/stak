@@ -34,14 +34,10 @@ var ReleaseSchema = new Schema({
     type: Boolean,
     default: false
   },
-  created: {
-    type: Date,
-    default: Date.now
-  },
   createdBy: {
     type: Schema.ObjectId,
     ref: 'User'
   }
-});
+}, { timestamps: true });
 
 mongoose.model('Release', ReleaseSchema);

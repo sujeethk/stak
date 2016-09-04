@@ -49,6 +49,7 @@ exports.update = function(req, res) {
 
   task = _.extend(task , req.body);
   task.modifiedBy = req.user;
+  
   task.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -67,7 +68,14 @@ exports.bulkupdate = function(req, res) {
   var tasks = req.body;
   var msg = '';
   for(var i = 0; i < tasks.length; i++){
-    Task.findOneAndUpdate({ '_id': tasks[i]._id }, { 'sortOrder': tasks[i].sortOrder }, callbackfnbu);
+    if(tasks[i]._id) {
+      Task.findOneAndUpdate({ '_id': tasks[i]._id }, { 'sortOrder': tasks[i].sortOrder, 'category': tasks[i].category, 'duration': tasks[i].duration, 'poc': tasks[i].poc}, callbackfnbu);
+    } else {
+      var task = new Task(tasks[i]);
+      task.createdBy = req.user;
+
+      task.save(callbackfnbu);
+    }
   }
   function callbackfnbu(err){
     if(err){
