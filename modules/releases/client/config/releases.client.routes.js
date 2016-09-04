@@ -20,6 +20,7 @@
         controller: 'ReleasesListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Releases List'
         }
       })

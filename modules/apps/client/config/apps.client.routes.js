@@ -20,6 +20,7 @@
         controller: 'AppsListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Apps List'
         }
       })

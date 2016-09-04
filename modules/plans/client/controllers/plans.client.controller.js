@@ -30,6 +30,8 @@
       vm.remove = remove;
       vm.save = save;
       vm.options = {};
+      vm.options.task = {};
+      vm.options.task.category = ['Deploy', 'Routing', 'Certification', 'Infrastructure'];
       vm.dnd = {};
       vm.cancelform = cancelform;
       vm.options.category = ['Routing', 'Release', 'Adhoc', 'Template'];
@@ -43,20 +45,19 @@
 
     //Calculate start and end times for tasks
     if(vm.plan._id){
+      vm.addnewtask = addnewtask;
       vm.tasks.$promise.then(function(){
         for(var i = 0; i < vm.tasks.length; i++){
           if(vm.tasks[i].status === 'Draft' || 'Approved' || 'Canceled'){
             if(i===0){
-              vm.tasks[i].initStart = new Date(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart);
-              vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+              vm.tasks[i].updatedStart = new Date(vm.plan.actualStart || vm.plan.updatedStart || vm.plan.initStart);
+              vm.tasks[i].updatedEnd = new Date(vm.tasks[i].updatedStart.getTime() + (vm.tasks[i].duration*60000));
             } else {
-              vm.tasks[i].initStart = vm.tasks[i-1].initEnd;
-              vm.tasks[i].initEnd = new Date(vm.tasks[i].initStart.getTime() + (vm.tasks[i].duration*60000));
+              vm.tasks[i].updatedStart = vm.tasks[i-1].updatedEnd;
+              vm.tasks[i].updatedEnd = new Date(vm.tasks[i].updatedStart.getTime() + (vm.tasks[i].duration*60000));
             }
           } else if(vm.tasks[i].status === 'Started'){
-
-          } else if(vm.tasks[i].status === 'Completed'){
-
+            vm.tasks[i].updatedEnd = new Date(vm.tasks[i].actualStart.getTime() + (vm.tasks[i].duration*60000));
           }
         }
       });
@@ -75,7 +76,10 @@
       } else {
         $state.go('plans.list');
       }
+    }
 
+    function addnewtask() {
+      vm.tasks.push({ name:'', duration: 0, category: '', parent: vm.plan._id });
     }
 
     //Start execution function
@@ -118,7 +122,7 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.planForm');
         return false;
       }
-      vm.plan.lastModified = Date.now();
+
       // TODO: move create/update logic to service
       if (vm.plan._id) {
         //Call bulk update api to update sortorder and any other changes from the form on update

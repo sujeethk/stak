@@ -35,14 +35,10 @@ var AppSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Domain'
   },
-  created: {
-    type: Date,
-    default: Date.now
-  },
   createdBy: {
     type: Schema.ObjectId,
     ref: 'User'
   }
-});
+}, { timestamps: true });
 
 mongoose.model('App', AppSchema);

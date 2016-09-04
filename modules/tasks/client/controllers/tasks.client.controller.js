@@ -16,7 +16,7 @@
     var lastbestknown = task.toJSON();
     vm.options = {};
     vm.options.type = ['Milestone', 'Stack', 'Task'];
-    vm.options.category = ['Deploy', 'Routing', 'Certiifcation', 'Infrastructure'];
+    vm.options.category = ['Deploy', 'Routing', 'Certification', 'Infrastructure'];
     vm.options.dcs = ['QTS', 'COIT', 'FRYE', 'VA', 'TX'];
     vm.error = null;
     vm.form = {};
@@ -67,7 +67,7 @@
         return false;
       }
       vm.task.parent = { _id: $stateParams.planId };
-      vm.task.lastModified = Date.now();
+
       vm.task.lastbestknown = lastbestknown;
       // TODO: move create/update logic to service
       if (vm.task._id) {

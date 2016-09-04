@@ -95,10 +95,6 @@ var PlanSchema = new Schema({
   updatedEnd: Date,
   actualStart: Date,
   actualEnd: Date,
-  created: {
-    type: Date,
-    default: Date.now
-  },
   createdBy: {
     type: Schema.ObjectId,
     ref: 'User'
@@ -107,13 +103,9 @@ var PlanSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  lastModified: {
-    type: Date,
-    default: Date.now
-  },
   subscribers: [{
     type: String
   }]
-});
+}, { timestamps: true });
 
 mongoose.model('Plan', PlanSchema);

@@ -116,13 +116,6 @@ var UserSchema = new Schema({
     default: ['user'],
     required: 'Please provide at least one role'
   },
-  updated: {
-    type: Date
-  },
-  created: {
-    type: Date,
-    default: Date.now
-  },
   /* For reset password */
   resetPasswordToken: {
     type: String
@@ -130,7 +123,7 @@ var UserSchema = new Schema({
   resetPasswordExpires: {
     type: Date
   }
-});
+}, { timestamps: true });
 
 /**
  * Hook a pre save method to hash the password
@@ -209,7 +202,7 @@ UserSchema.statics.generateRandomPassphrase = function () {
     var password = '';
     var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
-    // iterate until the we have a valid passphrase. 
+    // iterate until the we have a valid passphrase.
     // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
     while (password.length < 20 || repeatingCharacters.test(password)) {
       // build the random password

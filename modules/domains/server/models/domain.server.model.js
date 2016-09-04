@@ -26,14 +26,10 @@ var DomainSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   }],
-  created: {
-    type: Date,
-    default: Date.now
-  },
   createdBy: {
     type: Schema.ObjectId,
     ref: 'User'
   }
-});
+}, { timestamps: true });
 
 mongoose.model('Domain', DomainSchema);

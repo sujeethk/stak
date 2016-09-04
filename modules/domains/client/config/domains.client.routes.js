@@ -20,6 +20,7 @@
         controller: 'DomainsListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user', 'admin'],
           pageTitle: 'Domains List'
         }
       })

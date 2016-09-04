@@ -1,7 +1,7 @@
 {
   "name": "stak",
   "description": "Modular task scheduler",
-  "homepage": "http://meanjs.org/",
+  "homepage": "",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.5.8",

@@ -31,7 +31,7 @@ module.exports = function (karmaConfig) {
     },
 
     ngHtml2JsPreprocessor: {
-      moduleName: 'mean',
+      moduleName: 'stak',
 
       cacheIdFromPath: function (filepath) {
         return filepath;
