@@ -96,7 +96,7 @@ var validateSessionSecret = function (config, testing) {
     return true;
   }
 
-  if (config.sessionSecret === 'MEAN') {
+  if (config.sessionSecret === 'STAK') {
     if (!testing) {
       console.log(chalk.red('+ WARNING: It is strongly recommended that you change sessionSecret config while running in production!'));
       console.log(chalk.red('  Please add `sessionSecret: process.env.SESSION_SECRET || \'super amazing secret\'` to '));
