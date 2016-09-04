@@ -39,12 +39,12 @@
     "generate-password": "^1.1.1",
     "glob": "^7.0.6",
     "helmet": "~2.1.2",
-    "jasmine-core": "^2.4.1",
+    "jasmine-core": "^2.5.0",
     "lodash": "^4.15.0",
     "lusca": "~1.4.1",
     "method-override": "^2.3.6",
     "mocha": "~3.0.2",
-    "mongoose": "~4.5.10",
+    "mongoose": "~4.6.0",
     "morgan": "^1.7.0",
     "multer": "~1.2.0",
     "nodemailer": "^2.5.0",
@@ -55,7 +55,7 @@
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.8",
     "swig": "^1.4.2",
-    "validator": "^5.5.0"
+    "validator": "^5.6.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.12",
@@ -86,7 +86,7 @@
     "karma-firefox-launcher": "~1.0.0",
     "karma-jasmine": "~1.0.2",
     "karma-ng-html2js-preprocessor": "^1.0.0",
-    "karma-phantomjs-launcher": "~1.0.1",
+    "karma-phantomjs-launcher": "~1.0.2",
     "mock-fs": "~3.11.0",
     "run-sequence": "^1.2.2",
     "should": "^11.1.0",
