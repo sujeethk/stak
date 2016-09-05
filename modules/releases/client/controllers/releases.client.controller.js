@@ -6,9 +6,9 @@
     .module('releases')
     .controller('ReleasesController', ReleasesController);
 
-  ReleasesController.$inject = ['$scope', '$state', '$timeout', 'Authentication', 'releaseResolve'];
+  ReleasesController.$inject = ['$scope', '$state', '$timeout', 'Authentication', 'releaseResolve', 'toasty'];
 
-  function ReleasesController ($scope, $state, $timeout, Authentication, release) {
+  function ReleasesController ($scope, $state, $timeout, Authentication, release, toasty) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -28,6 +28,11 @@
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
         vm.release.$remove($state.go('releases.list'));
+        toasty.success({
+          title: 'Deleted!',
+          msg: vm.release.name + ' has been deleted!',
+          theme: 'bootstrap'
+        });
       }
     }
 
@@ -35,7 +40,7 @@
     function cancelform() {
       $state.go('releases.list');
     }
-    
+
     // Save Release
     function save(isValid) {
       if (!isValid) {
@@ -55,10 +60,20 @@
 
       function successCallback(res) {
         $state.go('releases.list');
+        toasty.success({
+          title: 'Save successful!',
+          msg: vm.release.name + ' has been saved!',
+          theme: 'bootstrap'
+        });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        toasty.error({
+          title: 'Save Error!',
+          msg: vm.error,
+          theme: 'bootstrap'
+        });
       }
     }
   }
