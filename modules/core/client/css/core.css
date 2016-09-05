@@ -55,7 +55,7 @@ a:hover .header-profile-image {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
     /* Firefox 16+, IE 10+, Opera */ } }
-    
+
 .preloader {
   position: fixed;
   top: 0;
@@ -112,3 +112,25 @@ a:hover .header-profile-image {
       -webkit-animation: spin 1.5s linear infinite;
               animation: spin 1.5s linear infinite;
       /* Chrome, Firefox 16+, IE 10+, Opera */ }
+
+      .slidedown {
+          position: absolute;
+
+      }
+      .slidedown.ng-enter,
+      .slidedown.ng-leave {
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
+      }
+      .slidedown.ng-enter {
+          top: -100%;
+      }
+      .slidedown.ng-enter-active {
+          top: 0;
+      }
+      .slidedown.ng-leave {
+          top: 0;
+      }
+      .slidedown.ng-leave-active {
+          top: 100%;
+      }
