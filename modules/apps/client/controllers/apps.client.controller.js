@@ -25,11 +25,13 @@
     // Remove existing App
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.app.$remove($state.go('apps.list'));
-        toasty.success({
-          title: 'Deleted!',
-          msg: vm.app.name + ' has been deleted!',
-          theme: 'bootstrap'
+        vm.app.$remove(function (){
+          $state.go('apps.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.app.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
         });
       }
     }

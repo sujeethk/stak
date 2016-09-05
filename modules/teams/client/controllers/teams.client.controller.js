@@ -26,11 +26,13 @@
     // Remove existing Team
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.team.$remove($state.go('teams.list'));
-        toasty.success({
-          title: 'Deleted!',
-          msg: vm.team.name + ' has been deleted!',
-          theme: 'bootstrap'
+        vm.team.$remove(function (){
+          $state.go('teams.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.team.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
         });
       }
     }

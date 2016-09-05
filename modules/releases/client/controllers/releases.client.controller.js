@@ -27,11 +27,13 @@
     // Remove existing Release
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.release.$remove($state.go('releases.list'));
-        toasty.success({
-          title: 'Deleted!',
-          msg: vm.release.name + ' has been deleted!',
-          theme: 'bootstrap'
+        vm.release.$remove(function (){
+          $state.go('releases.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.release.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
         });
       }
     }

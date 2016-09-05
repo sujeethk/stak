@@ -40,11 +40,13 @@
     // Remove existing Domain
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.domain.$remove($state.go('domains.list'));
-        toasty.success({
-          title: 'Deleted!',
-          msg: vm.domain.name + ' has been deleted!',
-          theme: 'bootstrap'
+        vm.domain.$remove(function (){
+          $state.go('domains.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.domain.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
         });
       }
     }
