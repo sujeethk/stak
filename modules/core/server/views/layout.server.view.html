@@ -20,18 +20,24 @@
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 </head>
 
-<body class="ng-cloak">
-  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-  <section class="content">
-    <section class="container">
-      {% block content %}{% endblock %}
+<body>
+  <div class="preloader">
+    <div></div>
+  </div>
+  <div id="main" class="ng-cloak">
+    <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+    <section class="content">
+      <section class="container">
+        {% block content %}{% endblock %}
+      </section>
     </section>
-  </section>
 
-  <toasty></toasty>
+    <toasty></toasty>
+  </div>
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
+    window.onload = function () { document.getElementsByClassName('preloader')[0].style.display = "none"; }
   </script>
 
   <!--Load The Socket.io File-->
