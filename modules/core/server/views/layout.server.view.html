@@ -37,11 +37,9 @@
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
-    var loaded;
     window.onload = function () { window.setTimeout(function () {
       document.getElementsByClassName('preloader')[0].style.display = "none";
       document.getElementById('main').style.display = "block";
-      loaded = true;
     }, 1600); }
   </script>
 
