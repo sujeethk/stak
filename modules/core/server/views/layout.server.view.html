@@ -24,7 +24,7 @@
   <div class="preloader">
     <div></div>
   </div>
-  <div id="main" class="ng-cloak">
+  <div id="main" class="ng-cloak" style="display:none">
     <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
     <section class="content">
       <section class="container">
@@ -37,7 +37,12 @@
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
-    window.onload = function () { document.getElementsByClassName('preloader')[0].style.display = "none"; }
+    var loaded;
+    window.onload = function () { window.setTimeout(function () {
+      document.getElementsByClassName('preloader')[0].style.display = "none";
+      document.getElementById('main').style.display = "block";
+      loaded = true;
+    }, 1600); }
   </script>
 
   <!--Load The Socket.io File-->
