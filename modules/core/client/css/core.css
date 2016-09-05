@@ -80,9 +80,12 @@ a:hover .header-profile-image {
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
     -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
     -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
             animation: spin 2s linear infinite;
     /* Chrome, Firefox 16+, IE 10+, Opera */ }
     .preloader > div:before {
@@ -96,6 +99,7 @@ a:hover .header-profile-image {
       border: 3px solid transparent;
       border-top-color: #209e91;
       -webkit-animation: spin 3s linear infinite;
+      -moz-animation: spin 3s linear infinite;
       /* Chrome, Opera 15+, Safari 5+ */
       animation: spin 3s linear infinite;
       /* Chrome, Firefox 16+, IE 10+, Opera */ }
@@ -110,16 +114,18 @@ a:hover .header-profile-image {
       border: 3px solid transparent;
       border-top-color: #dfb81c;
       -webkit-animation: spin 1.5s linear infinite;
+      -moz-animation: spin 1.5s linear infinite;
               animation: spin 1.5s linear infinite;
       /* Chrome, Firefox 16+, IE 10+, Opera */ }
 
       .slidedown {
           position: absolute;
-
       }
       .slidedown.ng-enter,
       .slidedown.ng-leave {
           -webkit-transition: all 1s ease;
+          -moz-transition: all 1s ease;
+          -o-transition: all 1s ease;
           transition: all 1s ease;
       }
       .slidedown.ng-enter {
