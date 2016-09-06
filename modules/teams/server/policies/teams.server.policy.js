@@ -30,15 +30,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/teams/:teamId',
       permissions: ['get']
     }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/teams',
-      permissions: ['get']
-    }, {
-      resources: '/api/teams/:teamId',
-      permissions: ['get']
-    }]
   }]);
 };
 
