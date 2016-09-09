@@ -66,7 +66,14 @@
     // Remove existing Plan
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.plan.$remove($state.go('plans.list'));
+        vm.plan.$remove(function (){
+          $state.go('plans.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.plan.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
+        });
       }
     }
 

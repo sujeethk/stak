@@ -6,9 +6,9 @@
     .module('apps')
     .controller('AppsController', AppsController);
 
-  AppsController.$inject = ['$scope', '$state', 'Authentication', 'appResolve', 'Userslist', 'DomainsService'];
+  AppsController.$inject = ['$scope', '$state', 'Authentication', 'appResolve', 'Userslist', 'DomainsService', 'toasty'];
 
-  function AppsController ($scope, $state, Authentication, app, Userslist, DomainsService) {
+  function AppsController ($scope, $state, Authentication, app, Userslist, DomainsService, toasty) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -25,7 +25,14 @@
     // Remove existing App
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.app.$remove($state.go('apps.list'));
+        vm.app.$remove(function (){
+          $state.go('apps.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.app.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
+        });
       }
     }
 
@@ -50,10 +57,20 @@
 
       function successCallback(res) {
         $state.go('apps.list');
+        toasty.success({
+          title: 'Save successful!',
+          msg: vm.app.name + ' has been saved!',
+          theme: 'bootstrap'
+        });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        toasty.error({
+          title: 'Save Error!',
+          msg: vm.error,
+          theme: 'bootstrap'
+        });
       }
     }
   }

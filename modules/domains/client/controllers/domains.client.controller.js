@@ -6,9 +6,9 @@
     .module('domains')
     .controller('DomainsController', DomainsController);
 
-  DomainsController.$inject = ['$scope', '$http','$state', 'Authentication', 'domainResolve', 'Userslist'];
+  DomainsController.$inject = ['$scope', '$http','$state', 'Authentication', 'domainResolve', 'Userslist', 'toasty'];
 
-  function DomainsController ($scope, $http, $state, Authentication, domain, Userslist) {
+  function DomainsController ($scope, $http, $state, Authentication, domain, Userslist, toasty) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -40,7 +40,14 @@
     // Remove existing Domain
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.domain.$remove($state.go('domains.list'));
+        vm.domain.$remove(function (){
+          $state.go('domains.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.domain.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
+        });
       }
     }
 
@@ -65,10 +72,20 @@
 
       function successCallback(res) {
         $state.go('domains.list');
+        toasty.success({
+          title: 'Save successful!',
+          msg: vm.domain.name + ' has been saved!',
+          theme: 'bootstrap'
+        });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        toasty.error({
+          title: 'Save Error!',
+          msg: vm.error,
+          theme: 'bootstrap'
+        });
       }
     }
   }

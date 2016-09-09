@@ -18,20 +18,134 @@
 
   <!-- Application CSS Files -->
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+  <style> /*Intentionally added preloader css on index for quicker preloader*/
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+      }
+    100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+      } }
+
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+      }
+    100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+      } }
+
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: #000000;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden; }
+  .preloader > div {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #e85656;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+    }
+  .preloader > div:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #209e91;
+    -webkit-animation: spin 3s linear infinite;
+    -moz-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+    }
+  .preloader > div:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #dfb81c;
+    -webkit-animation: spin 1.5s linear infinite;
+    -moz-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+    }
+
+    .slidedown {
+        position: absolute;
+    }
+    .slidedown.ng-enter,
+    .slidedown.ng-leave {
+        -webkit-transition: all 1s ease;
+        -moz-transition: all 1s ease;
+        -o-transition: all 1s ease;
+        transition: all 1s ease;
+    }
+    .slidedown.ng-enter {
+        top: -100%;
+    }
+    .slidedown.ng-enter-active {
+        top: 0;
+    }
+    .slidedown.ng-leave {
+        top: 0;
+    }
+    .slidedown.ng-leave-active {
+        top: 100%;
+    }
+  </style>
 </head>
 
-<body class="ng-cloak">
-  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-  <section class="content">
-    <section class="container">
-      {% block content %}{% endblock %}
+<body>
+  <div class="preloader">
+    <div></div>
+  </div>
+  <div id="main" class="ng-cloak" style="display:none">
+    <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+    <section class="content">
+      <section class="container">
+        {% block content %}{% endblock %}
+      </section>
     </section>
-  </section>
 
-  <toasty></toasty>
+    <toasty></toasty>
+  </div>
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{ user | json | safe }};
+    window.onload = function () {
+      document.getElementsByClassName('preloader')[0].style.display = "none";
+      document.getElementById('main').style.display = "block";
+    }
   </script>
 
   <!--Load The Socket.io File-->

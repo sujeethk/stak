@@ -30,15 +30,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/plans/:planId/tasks/:taskId',
       permissions: ['get']
     }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/plans/:planId/tasks',
-      permissions: ['get']
-    }, {
-      resources: '/api/plans/:planId/tasks/:taskId',
-      permissions: ['get']
-    }]
   }]);
 };
 

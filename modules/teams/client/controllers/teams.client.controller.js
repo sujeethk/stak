@@ -6,9 +6,9 @@
     .module('teams')
     .controller('TeamsController', TeamsController);
 
-  TeamsController.$inject = ['$scope', '$state', 'Authentication', 'teamResolve', 'Userslist', 'DomainsService'];
+  TeamsController.$inject = ['$scope', '$state', 'Authentication', 'teamResolve', 'Userslist', 'DomainsService', 'toasty'];
 
-  function TeamsController ($scope, $state, Authentication, team, Userslist, DomainsService) {
+  function TeamsController ($scope, $state, Authentication, team, Userslist, DomainsService, toasty) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -26,7 +26,14 @@
     // Remove existing Team
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.team.$remove($state.go('teams.list'));
+        vm.team.$remove(function (){
+          $state.go('teams.list');
+          toasty.success({
+            title: 'Deleted!',
+            msg: vm.team.name + ' has been deleted!',
+            theme: 'bootstrap'
+          });
+        });
       }
     }
 
@@ -51,10 +58,20 @@
 
       function successCallback(res) {
         $state.go('teams.list');
+        toasty.success({
+          title: 'Save successful!',
+          msg: vm.team.name + ' has been saved!',
+          theme: 'bootstrap'
+        });
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        toasty.success({
+          title: 'Save Error!',
+          msg: vm.error,
+          theme: 'bootstrap'
+        });
       }
     }
   }
